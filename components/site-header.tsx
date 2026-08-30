@@ -147,6 +147,12 @@ export function SiteHeader() {
               Instagram · {company.socials.instagram.handle}
             </>
           ) : null}
+          {company.socials.tiktok.handle ? (
+            <>
+              <br />
+              TikTok · {company.socials.tiktok.handle}
+            </>
+          ) : null}
         </p>
       </div>
     </header>

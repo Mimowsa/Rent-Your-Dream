@@ -7,6 +7,7 @@ export function SiteFooter() {
   const year = new Date().getFullYear()
   const snap = company.socials.snapchat
   const insta = company.socials.instagram
+  const tiktok = company.socials.tiktok
 
   return (
     <footer className="footer" id="contact">
@@ -68,6 +69,13 @@ export function SiteFooter() {
               </a>
             ) : (
               <span>Instagram · {insta.handle ?? 'à venir'}</span>
+            )}
+            {tiktok.url ? (
+              <a href={tiktok.url} target="_blank" rel="noopener noreferrer">
+                TikTok · {tiktok.handle}
+              </a>
+            ) : (
+              <span>TikTok · {tiktok.handle ?? 'à venir'}</span>
             )}
             <span>Téléphone · {company.phone ?? 'à venir'}</span>
             <span>{company.area}</span>

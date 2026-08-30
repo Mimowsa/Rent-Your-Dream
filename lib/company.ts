@@ -56,8 +56,8 @@ export const company = {
     },
     tiktok: {
       label: 'TikTok',
-      handle: null,
-      url: null,
+      handle: '@Rentyd75',
+      url: 'https://www.tiktok.com/@Rentyd75',
       color: '#010101',
     },
     whatsapp: {
