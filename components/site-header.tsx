@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -12,7 +12,13 @@ export function SiteHeader() {
   const pathname = usePathname()
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
-  const firstRef = useRef<HTMLAnchorElement>(null)
+  const burgerRef = useRef<HTMLButtonElement>(null)
+  const drawerRef = useRef<HTMLDivElement>(null)
+
+  const close = useCallback(() => {
+    setOpen(false)
+    burgerRef.current?.focus()
+  }, [])
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12)
@@ -21,20 +27,41 @@ export function SiteHeader() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  // close on route change (belt & braces — links also close on click)
   useEffect(() => setOpen(false), [pathname])
 
   useEffect(() => {
     if (!open) return
     const prev = document.body.style.overflow
     document.body.style.overflow = 'hidden'
-    firstRef.current?.focus()
-    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false)
+
+    const drawer = drawerRef.current
+    drawer?.querySelector<HTMLElement>('a, button')?.focus()
+
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        close()
+        return
+      }
+      if (e.key !== 'Tab' || !drawer) return
+      const items = drawer.querySelectorAll<HTMLElement>('a[href], button')
+      if (!items.length) return
+      const first = items[0]
+      const last = items[items.length - 1]
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault()
+        last.focus()
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault()
+        first.focus()
+      }
+    }
     window.addEventListener('keydown', onKey)
     return () => {
       document.body.style.overflow = prev
       window.removeEventListener('keydown', onKey)
     }
-  }, [open])
+  }, [open, close])
 
   return (
     <header className="header" data-scrolled={scrolled ? 'true' : undefined}>
@@ -63,6 +90,7 @@ export function SiteHeader() {
         <button
           type="button"
           className="burger"
+          ref={burgerRef}
           aria-expanded={open}
           aria-controls="drawer"
           onClick={() => setOpen(true)}
@@ -72,9 +100,20 @@ export function SiteHeader() {
         </button>
       </div>
 
-      <div id="drawer" className="drawer" data-open={open ? 'true' : undefined}>
+      <div
+        id="drawer"
+        className="drawer"
+        ref={drawerRef}
+        data-open={open ? 'true' : undefined}
+        aria-hidden={open ? undefined : true}
+      >
         <div className="drawer-top">
-          <Link href="/" className="brand" aria-label={`${company.name} — accueil`}>
+          <Link
+            href="/"
+            className="brand"
+            aria-label={`${company.name} — accueil`}
+            onClick={close}
+          >
             <Image
               src="/brand/logo-horizontal-tight.png"
               alt={company.name}
@@ -83,19 +122,19 @@ export function SiteHeader() {
               style={{ height: 22, width: 'auto' }}
             />
           </Link>
-          <button type="button" className="burger" onClick={() => setOpen(false)}>
+          <button type="button" className="burger" onClick={close}>
             <span className="sr-only">Fermer</span>
             <Close />
           </button>
         </div>
         <nav aria-label="Navigation mobile">
-          {mainNav.map((i, idx) => (
-            <Link key={i.href} href={i.href} ref={idx === 0 ? firstRef : undefined}>
+          {mainNav.map((i) => (
+            <Link key={i.href} href={i.href} onClick={close}>
               {i.label}
             </Link>
           ))}
         </nav>
-        <Link href={primaryCta.href} className="btn btn--primary btn--block">
+        <Link href={primaryCta.href} className="btn btn--primary btn--block" onClick={close}>
           {primaryCta.label}
         </Link>
         <p className="drawer-foot">

@@ -3,7 +3,6 @@ import { ConfiguratorBand } from '@/components/configurator'
 import { VehicleCard, VehicleCardSoon } from '@/components/vehicle-card'
 import { FaqAccordion, faqJsonLd } from '@/components/faq-accordion'
 import { SocialBand } from '@/components/social-section'
-import { Reveal } from '@/components/reveal'
 import { euros, vehicles } from '@/lib/vehicles'
 import { company } from '@/lib/company'
 
@@ -93,16 +92,14 @@ export default function HomePage() {
             <span className="section-mark" aria-hidden="true" />
             <h2>Nos véhicules</h2>
           </div>
-          <Reveal>
-            <div className="veh-grid" data-count={shown.length + soon}>
-              {shown.map((v) => (
-                <VehicleCard key={v.slug} vehicle={v} />
-              ))}
-              {Array.from({ length: soon }).map((_, i) => (
-                <VehicleCardSoon key={i} />
-              ))}
-            </div>
-          </Reveal>
+          <div className="veh-grid" data-count={shown.length + soon}>
+            {shown.map((v) => (
+              <VehicleCard key={v.slug} vehicle={v} />
+            ))}
+            {Array.from({ length: soon }).map((_, i) => (
+              <VehicleCardSoon key={i} />
+            ))}
+          </div>
         </div>
       </section>
 
@@ -120,8 +117,9 @@ export default function HomePage() {
             <span className="kicker">FAQ</span>
             <h2>Questions fréquentes</h2>
             <p>
-              L’essentiel avant de réserver. Un point à préciser ? Écrivez-nous,
-              on répond directement.
+              L’essentiel avant de réserver. Un point à préciser ?{' '}
+              <a href={`mailto:${company.email}`}>Écrivez-nous</a>, on répond
+              directement.
             </p>
           </div>
           <FaqAccordion />

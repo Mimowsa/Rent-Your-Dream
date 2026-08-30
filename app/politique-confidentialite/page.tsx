@@ -23,9 +23,9 @@ export default function ConfidentialitePage() {
       <p>
         Le site ne crée aucun compte et ne stocke aucune donnée sur ses serveurs.
         Le configurateur de réservation fonctionne entièrement dans votre
-        navigateur : les informations que vous saisissez (dates, prénom, nom,
-        précisions) servent uniquement à composer un message que <em>vous</em>{' '}
-        choisissez d’envoyer, par WhatsApp ou par e-mail.
+        navigateur : les informations que vous choisissez (véhicule, dates,
+        formule de kilométrage) servent uniquement à composer un message que{' '}
+        <em>vous</em> décidez d’envoyer, par WhatsApp ou par e-mail.
       </p>
 
       <h2>Données transmises lors d’une demande</h2>
