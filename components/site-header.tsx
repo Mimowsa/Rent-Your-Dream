@@ -141,6 +141,12 @@ export function SiteHeader() {
           {company.email}
           <br />
           Snapchat · {company.socials.snapchat.handle}
+          {company.socials.instagram.handle ? (
+            <>
+              <br />
+              Instagram · {company.socials.instagram.handle}
+            </>
+          ) : null}
         </p>
       </div>
     </header>

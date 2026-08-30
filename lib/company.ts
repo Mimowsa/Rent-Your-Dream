@@ -50,8 +50,8 @@ export const company = {
     },
     instagram: {
       label: 'Instagram',
-      handle: null,
-      url: null,
+      handle: '@rentyd75',
+      url: 'https://www.instagram.com/rentyd75/',
       color: '#E1306C',
     },
     tiktok: {

@@ -6,6 +6,7 @@ import { ArrowRight, Mail } from '@/components/icons'
 export function SiteFooter() {
   const year = new Date().getFullYear()
   const snap = company.socials.snapchat
+  const insta = company.socials.instagram
 
   return (
     <footer className="footer" id="contact">
@@ -60,6 +61,13 @@ export function SiteFooter() {
               </a>
             ) : (
               <span>Snapchat · {snap.handle}</span>
+            )}
+            {insta.url ? (
+              <a href={insta.url} target="_blank" rel="noopener noreferrer">
+                Instagram · {insta.handle}
+              </a>
+            ) : (
+              <span>Instagram · {insta.handle ?? 'à venir'}</span>
             )}
             <span>Téléphone · {company.phone ?? 'à venir'}</span>
             <span>{company.area}</span>
