@@ -22,6 +22,7 @@ export async function generateMetadata({
   return {
     title: v.name,
     description: v.description,
+    alternates: { canonical: `/vehicules/${v.slug}` },
     openGraph: { title: `${v.name} · ${company.name}`, description: v.description, images: [v.photos[0].src] },
   }
 }

@@ -21,6 +21,7 @@ export const metadata: Metadata = {
   },
   description: company.description,
   applicationName: company.name,
+  alternates: { canonical: '/' },
   keywords: [
     'location voiture Paris',
     'location automobile Île-de-France',

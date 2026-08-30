@@ -50,7 +50,7 @@ export default function HomePage() {
         <div className="wrap hero-in">
           <span className="eyebrow">{company.name} — {company.city}</span>
           <h1>
-            Un rêve
+            Un rêve{' '}
             <br />
             <span>éveillé.</span>
           </h1>
