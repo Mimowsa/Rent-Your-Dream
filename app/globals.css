@@ -330,14 +330,18 @@ p {
     align-items: center;
     gap: 30px;
   }
-  .nav a {
+  .nav a:not(.btn) {
     font-size: 0.88rem;
     font-weight: 600;
     color: var(--ink-soft);
     transition: color 0.15s ease;
   }
-  .nav a:hover {
+  .nav a:not(.btn):hover {
     color: var(--blue);
+  }
+  .nav a.btn--primary,
+  .nav a.btn--primary:hover {
+    color: #fff;
   }
 }
 .burger {
