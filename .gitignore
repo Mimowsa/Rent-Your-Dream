@@ -1,0 +1,16 @@
+/node_modules
+/.next
+/.next-profiles
+/out
+/build
+*.pem
+.env*.local
+.DS_Store
+*.tsbuildinfo
+next-env.d.ts
+
+# local tooling
+/.claude/settings.local.json
+
+# scratch dump of raw source images (kept locally; canonical copies live in assets/originals)
+/Src
