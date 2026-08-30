@@ -291,10 +291,8 @@ p {
   position: sticky;
   top: 0;
   z-index: 60;
-  background: rgba(255, 255, 255, 0.86);
-  backdrop-filter: saturate(1.6) blur(10px);
-  -webkit-backdrop-filter: saturate(1.6) blur(10px);
-  border-bottom: 1px solid transparent;
+  background: #ffffff;
+  border-bottom: 1px solid var(--line-soft);
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 .header[data-scrolled="true"] {
