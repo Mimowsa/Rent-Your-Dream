@@ -69,7 +69,7 @@ export function SiteHeader() {
         <Link href="/" className="brand" aria-label={`${company.name} — accueil`}>
           <Image
             className="brand-mark"
-            src="/brand/logo-mark.png"
+            src="/brand/ryd-mark.png"
             alt={company.name}
             width={1099}
             height={352}
@@ -77,7 +77,7 @@ export function SiteHeader() {
           />
           <Image
             className="brand-full"
-            src="/brand/logo-horizontal-tight.png"
+            src="/brand/ryd-lockup.png"
             alt=""
             width={1804}
             height={232}
@@ -124,7 +124,7 @@ export function SiteHeader() {
             onClick={close}
           >
             <Image
-              src="/brand/logo-mark.png"
+              src="/brand/ryd-mark.png"
               alt={company.name}
               width={1099}
               height={352}

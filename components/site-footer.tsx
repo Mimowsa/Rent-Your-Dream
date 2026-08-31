@@ -36,7 +36,7 @@ export function SiteFooter() {
           <div className="footer-brand">
             <Link href="/" className="brand" aria-label={`${company.name} — accueil`}>
               <Image
-                src="/brand/logo-horizontal-tight.png"
+                src="/brand/ryd-lockup.png"
                 alt={company.name}
                 width={1804}
                 height={232}

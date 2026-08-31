@@ -1342,11 +1342,14 @@ a.sb-pill:hover .sb-arrow {
 }
 .footer-brand .brand {
   display: inline-block;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 12px 30px -16px rgba(0, 0, 0, 0.5);
 }
 .footer-brand img {
-  height: 26px;
+  height: 24px;
   width: auto;
-  filter: brightness(0) invert(1);
 }
 .footer-slogan {
   margin-top: 16px;

@@ -44,10 +44,10 @@ Header clair : fond blanc, fine bordure basse au scroll ; **marque RYD seule sur
 mobile, lockup complet dès 48em**. Menu mobile (drawer) clair. Hero sans photo :
 dégradé blanc → rose très pâle + vague SVG.
 
-Logos (`public/brand/`, PNG transparents) : `logo-horizontal-tight.png` (lockup
-détouré, header desktop + footer), `logo-mark.png` (monogramme RYD seul, header
-mobile + drawer + favicon), `logo-horizontal.png` (lockup avec marges),
-`logo-stacked.png` (version verticale). Sources dans `assets/originals/`.
+Logos (`public/brand/`, PNG transparents) : `ryd-lockup.png` (lockup détouré —
+header desktop + footer, sur pastille blanche), `ryd-mark.png` (monogramme RYD
+seul — header mobile + drawer + favicon), `ryd-lockup-full.png` (lockup avec
+marges), `ryd-stacked.png` (version verticale). Sources dans `assets/originals/`.
 
 ## Développement
 
