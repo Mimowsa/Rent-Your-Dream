@@ -5,6 +5,7 @@ import { FaqAccordion, faqJsonLd } from '@/components/faq-accordion'
 import { SocialBand } from '@/components/social-section'
 import { euros, vehicles } from '@/lib/vehicles'
 import { company } from '@/lib/company'
+import { contactChatLink } from '@/lib/whatsapp'
 
 export default function HomePage() {
   const shown = vehicles.slice(0, 4)
@@ -118,8 +119,10 @@ export default function HomePage() {
             <h2>Questions fréquentes</h2>
             <p>
               L’essentiel avant de réserver. Un point à préciser ?{' '}
-              <a href={`mailto:${company.email}`}>Écrivez-nous</a>, on répond
-              directement.
+              <a href={contactChatLink} target="_blank" rel="noopener noreferrer">
+                Écrivez-nous sur WhatsApp
+              </a>
+              , on répond directement.
             </p>
           </div>
           <FaqAccordion />

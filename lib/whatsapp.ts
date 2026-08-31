@@ -102,3 +102,11 @@ export function contactLink(message: string): { href: string; channel: 'whatsapp
 }
 
 export const whatsappReady = company.whatsappNumber !== null
+
+/**
+ * Plain "open a chat" link (no pre-filled message) for the generic
+ * "contact us" buttons. WhatsApp when the number is known, e-mail otherwise.
+ */
+export const contactChatLink = company.whatsappNumber
+  ? `https://wa.me/${company.whatsappNumber}`
+  : `mailto:${company.email}`

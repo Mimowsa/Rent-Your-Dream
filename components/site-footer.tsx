@@ -1,7 +1,8 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { company } from '@/lib/company'
-import { ArrowRight, Mail } from '@/components/icons'
+import { contactChatLink } from '@/lib/whatsapp'
+import { ArrowRight, WhatsApp } from '@/components/icons'
 
 export function SiteFooter() {
   const year = new Date().getFullYear()
@@ -24,8 +25,13 @@ export function SiteFooter() {
               Réserver
               <ArrowRight />
             </Link>
-            <a href={`mailto:${company.email}`} className="btn btn--on-dark">
-              <Mail />
+            <a
+              href={contactChatLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn--on-dark"
+            >
+              <WhatsApp />
               Nous écrire
             </a>
           </div>
@@ -55,7 +61,9 @@ export function SiteFooter() {
 
           <div className="footer-col">
             <h3>Contact</h3>
-            <a href={`mailto:${company.email}`}>{company.email}</a>
+            <a href={contactChatLink} target="_blank" rel="noopener noreferrer">
+              WhatsApp · réservation & questions
+            </a>
             {snap.url ? (
               <a href={snap.url} target="_blank" rel="noopener noreferrer">
                 Snapchat · {snap.handle}

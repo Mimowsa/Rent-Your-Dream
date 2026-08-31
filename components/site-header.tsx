@@ -147,7 +147,7 @@ export function SiteHeader() {
           {primaryCta.label}
         </Link>
         <p className="drawer-foot">
-          {company.email}
+          {company.phone ? `WhatsApp · ${company.phone}` : company.email}
           <br />
           Snapchat · {company.socials.snapchat.handle}
           {company.socials.instagram.handle ? (
