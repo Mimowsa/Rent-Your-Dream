@@ -26,11 +26,17 @@ Pages légales (`/mentions-legales`, `/politique-confidentialite`,
 
 ## Direction artistique
 
-Claire. Blanc dominant. Palette du logo : **bleu `#0D47A1`** (CTA, liens,
-chiffres, vague du hero, footer), **rouge `#D32F2F`** en accent (trait au-dessus
-des titres, filets de l'eyebrow, survol des liens de texte), **gris `#757575`**
-pour le texte secondaire (token `--gray` légèrement assombri à `#6a6a6a` pour le
-contraste AA). Anthracite pour les titres et le corps de texte. Typo **Manrope**.
+Claire. Blanc dominant. Palette du logo, système tricolore :
+- **bleu `#0D47A1`** = action : CTA, liens, prix, coches, vague du hero, footer.
+- **rouge `#D32F2F`** (`--red-soft #f26a68` sur fond sombre) = accent : le mot
+  « éveillé. » du hero, tous les eyebrows / kickers, les icônes +/− de la FAQ,
+  les traits au-dessus des titres, les intitulés de colonnes + le slogan du
+  footer, le survol des liens de texte, le filet des encadrés légaux.
+- **gris `#757575`** = texte secondaire (token `--gray` ajusté à `#6a6a6a` pour
+  le contraste AA).
+- anthracite pour les titres et le corps de texte.
+
+Typo **Manrope**.
 Header clair : fond blanc, logo en couleurs, liens anthracite, bouton bleu ; fine
 bordure basse au scroll. Menu mobile (drawer) clair. Hero sans photo : dégradé
 blanc → bleu très pâle + vague SVG. Logo : `public/brand/logo-horizontal-tight.png`
