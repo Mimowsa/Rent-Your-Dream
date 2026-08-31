@@ -26,14 +26,14 @@ export const faq: FaqItem[] = [
       'Chaque véhicule inclut un forfait kilométrique journalier, précisé sur sa fiche (par exemple 250 km / jour). Les kilomètres supplémentaires éventuels sont décomptés selon un barème communiqué avant le départ.',
   },
   {
-    question: 'Puis-je avoir le kilométrage illimité ?',
+    question: 'Et si j’ai besoin de plus de kilomètres ?',
     answer:
-      'Oui, pour la plupart des véhicules. L’option kilométrage illimité fait l’objet d’un supplément forfaitaire par location, indiqué sur la fiche du véhicule concerné.',
+      'C’est possible : indiquez le nombre de kilomètres supplémentaires souhaités dans le configurateur (« Km supplémentaires ? »). Nous vous communiquons le tarif correspondant lors de la confirmation de votre demande.',
   },
   {
     question: 'Comment effectuer une réservation ?',
     answer:
-      'Choisissez le véhicule et vos dates dans le configurateur : il prépare un message récapitulatif. Vous l’envoyez sur WhatsApp (ou par e-mail en attendant l’ouverture de la ligne WhatsApp) et nous vous confirmons la disponibilité directement.',
+      'Choisissez le véhicule et vos dates dans le configurateur : il prépare un message récapitulatif. Vous l’envoyez sur WhatsApp en un clic (ou par e-mail si vous préférez) et nous vous confirmons la disponibilité directement.',
   },
   {
     question: 'Quels moyens de paiement sont acceptés ?',

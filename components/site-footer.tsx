@@ -77,7 +77,13 @@ export function SiteFooter() {
             ) : (
               <span>TikTok · {tiktok.handle ?? 'à venir'}</span>
             )}
-            <span>Téléphone · {company.phone ?? 'à venir'}</span>
+            {company.phone ? (
+              <a href={`tel:${company.phone.replace(/[^\d+]/g, '')}`}>
+                Téléphone · {company.phone}
+              </a>
+            ) : (
+              <span>Téléphone · à venir</span>
+            )}
             <span>{company.area}</span>
             <span>{company.deliveryNote}</span>
           </div>

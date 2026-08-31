@@ -30,16 +30,15 @@ export const company = {
   deliveryNote: 'Livraison possible partout en France',
 
   email: 'RentYourDream@outlook.fr',
-  /** Phone number — not communicated yet. */
-  phone: null as string | null,
+  /** Display phone number. */
+  phone: '+33 6 88 43 39 93' as string | null,
 
   /**
    * WhatsApp business number in international format, digits only, no "+".
-   * Example once known: '33612345678'.
-   * While null, the site builds the full pre-filled message anyway and offers
-   * an e-mail fallback, so no component needs to change when the number lands.
+   * When set, every "Réserver" CTA opens WhatsApp (wa.me) with the pre-filled
+   * message; when null it falls back to an e-mail.
    */
-  whatsappNumber: null as string | null,
+  whatsappNumber: '33688433993' as string | null,
 
   socials: {
     snapchat: {
