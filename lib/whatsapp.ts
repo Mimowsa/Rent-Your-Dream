@@ -15,7 +15,9 @@ export type BookingSelection = {
   startTime: string // hh:mm
   endDate: string
   endTime: string
-  /** Kilomètres supplémentaires souhaités au-delà du forfait (0 = aucun). */
+  /** true : le client veut des kilomètres au-delà du forfait. */
+  extraKmWanted: boolean
+  /** Nombre de km supplémentaires souhaités (0 = non précisé). */
   extraKm: number
   /** true : le client demande une livraison du véhicule. */
   delivery: boolean
@@ -59,8 +61,12 @@ export function buildWhatsappMessage(sel: BookingSelection, vehicle?: Vehicle): 
       vehicle ? ` (${vehicle.includedKmPerDay} km / jour)` : ''
     }`,
   )
-  if (sel.extraKm > 0) {
-    lines.push(`Kilomètres supplémentaires souhaités : environ ${sel.extraKm} km`)
+  if (sel.extraKmWanted) {
+    lines.push(
+      sel.extraKm > 0
+        ? `Kilomètres supplémentaires souhaités : environ ${sel.extraKm} km`
+        : 'Kilomètres supplémentaires souhaités : oui (quantité à préciser)',
+    )
   }
 
   if (sel.delivery) {

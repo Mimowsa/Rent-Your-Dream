@@ -15,11 +15,31 @@ function todayIso() {
   return new Date().toISOString().slice(0, 10)
 }
 
+function YesNo({
+  name,
+  value,
+  onChange,
+}: {
+  name: string
+  value: boolean
+  onChange: (v: boolean) => void
+}) {
+  return (
+    <div className="cfg__seg" role="group" aria-label={name}>
+      <button type="button" aria-pressed={value} onClick={() => onChange(true)}>
+        Oui
+      </button>
+      <button type="button" aria-pressed={!value} onClick={() => onChange(false)}>
+        Non
+      </button>
+    </div>
+  )
+}
+
 /**
  * Booking band — horizontal on desktop, stacked card on mobile.
  * Carries a live photo of the chosen vehicle and its key figures.
- * The full conversation (heures précises, nom…) se règle ensuite sur WhatsApp —
- * pas besoin d'un formulaire à rallonge ici.
+ * The full conversation (heures précises, nom…) se règle ensuite sur WhatsApp.
  */
 export function ConfiguratorBand() {
   const uid = useId()
@@ -28,6 +48,7 @@ export function ConfiguratorBand() {
   const [slug, setSlug] = useState(primaryVehicle.slug)
   const [startDate, setStartDate] = useState('')
   const [endDate, setEndDate] = useState('')
+  const [extraKmWanted, setExtraKmWanted] = useState(false)
   const [extraKm, setExtraKm] = useState('')
   const [delivery, setDelivery] = useState(false)
   const [deliveryCity, setDeliveryCity] = useState('')
@@ -48,7 +69,8 @@ export function ConfiguratorBand() {
     startTime: '10:00',
     endDate,
     endTime: '10:00',
-    extraKm: Math.max(0, Math.round(Number(extraKm) || 0)),
+    extraKmWanted,
+    extraKm: extraKmWanted ? Math.max(0, Math.round(Number(extraKm) || 0)) : 0,
     delivery,
     deliveryCity,
     note: '',
@@ -57,7 +79,7 @@ export function ConfiguratorBand() {
   const link = useMemo(
     () => contactLink(buildWhatsappMessage(selection, vehicle)),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [slug, startDate, endDate, extraKm, delivery, deliveryCity],
+    [slug, startDate, endDate, extraKmWanted, extraKm, delivery, deliveryCity],
   )
 
   return (
@@ -73,7 +95,7 @@ export function ConfiguratorBand() {
             src={vehicle.photos[0].src}
             alt={vehicle.photos[0].alt}
             fill
-            sizes="(max-width: 62em) 100vw, 280px"
+            sizes="(max-width: 62em) 100vw, 240px"
             style={{ objectFit: 'cover' }}
           />
         </div>
@@ -114,44 +136,41 @@ export function ConfiguratorBand() {
           />
         </div>
 
-        <div className="cfg__f">
-          <label htmlFor={`${uid}-km`}>Km supplémentaires ?</label>
-          <input
-            id={`${uid}-km`}
-            type="number"
-            min={0}
-            step={50}
-            inputMode="numeric"
-            placeholder="0"
-            value={extraKm}
-            onChange={(e) => setExtraKm(e.target.value)}
-          />
-        </div>
-
-        <div className="cfg__cta">
-          <label className="cfg__check">
-            <input
-              type="checkbox"
-              checked={delivery}
-              onChange={(e) => setDelivery(e.target.checked)}
-            />
-            <span>On vous livre la voiture ?</span>
-          </label>
-
-          {delivery && (
-            <div className="cfg__f cfg__f--slot">
-              <label htmlFor={`${uid}-city`}>Ville de livraison</label>
+        <div className="cfg__opts">
+          <div className="cfg__opt">
+            <span className="cfg__opt-q">Km supplémentaires ?</span>
+            <YesNo name="Km supplémentaires" value={extraKmWanted} onChange={setExtraKmWanted} />
+            {extraKmWanted && (
               <input
-                id={`${uid}-city`}
+                aria-label="Nombre de km supplémentaires"
+                type="number"
+                min={0}
+                step={50}
+                inputMode="numeric"
+                placeholder="Combien ? (ex. 300)"
+                value={extraKm}
+                onChange={(e) => setExtraKm(e.target.value)}
+              />
+            )}
+          </div>
+
+          <div className="cfg__opt">
+            <span className="cfg__opt-q">On vous livre la voiture ?</span>
+            <YesNo name="Livraison" value={delivery} onChange={setDelivery} />
+            {delivery && (
+              <input
+                aria-label="Ville de livraison"
                 type="text"
                 autoComplete="address-level2"
-                placeholder="Paris, Lyon…"
+                placeholder="Ville de livraison"
                 value={deliveryCity}
                 onChange={(e) => setDeliveryCity(e.target.value)}
               />
-            </div>
-          )}
+            )}
+          </div>
+        </div>
 
+        <div className="cfg__cta">
           {!datesReady ? (
             <button type="button" className="btn btn--primary" disabled>
               Réserver
