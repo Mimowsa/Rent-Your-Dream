@@ -54,7 +54,7 @@ export default function HomePage() {
             <br />
             <span>éveillé.</span>
           </h1>
-          <p>Louez la voiture, prenez la route. On confirme avec vous, directement.</p>
+          <p>Louez la voiture, prenez la route.</p>
           <div className="hero-actions">
             <Link href="#reserver" className="btn btn--primary">
               Réserver
