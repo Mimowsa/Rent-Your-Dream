@@ -1,19 +1,19 @@
 /* ============================================================
    Rent Your Dream — light, confident
-   Blanc dominant · bleu #0D47A1 · accent rouge #D32F2F · gris #757575
+   Blanc dominant · rouge #D32F2F (action) · bleu #0D47A1 (accent) · gris #757575
    Manrope · une seule page
    ============================================================ */
 
 :root {
   --white: #ffffff;
   --soft: #f4f5f7; /* light grey — section alternance */
-  --blue: #0d47a1; /* brand blue — CTA, liens, vague du hero */
-  --blue-dark: #0a3a84; /* hover / header scrollé */
-  --blue-soft: #6f9cd6; /* bleu clair — trait de vague, filets */
-  --blue-tint: #e8eefa; /* bleu très pâle — dégradé hero, état actif */
-  --red: #d32f2f; /* brand red — accent (traits, survols) */
-  --red-dark: #b02626;
-  --red-soft: #f26a68; /* rouge éclairci — labels sur fond sombre */
+  --primary: #d32f2f; /* rouge — action : CTA, liens, prix, vague du hero */
+  --primary-dark: #b02626; /* hover / header scrollé */
+  --primary-soft: #e08b88; /* rouge doux — trait de vague, filets */
+  --primary-tint: #fdeeee; /* rouge très pâle — dégradé hero, état actif */
+  --accent: #0d47a1; /* bleu — accent : eyebrows, kickers, traits, « éveillé. » */
+  --accent-dark: #0a3a84;
+  --accent-soft: #6f9cd6; /* bleu clair — labels sur fond sombre */
   --ink: #202732;
   --ink-soft: #3c4552;
   --gray: #6a6a6a; /* gris texte secondaire (famille #757575, contraste AA) */
@@ -21,8 +21,8 @@
   --line-soft: #eeeef1;
 
   --shadow-sm: 0 1px 2px rgba(20, 24, 33, 0.06);
-  --shadow: 0 16px 40px -18px rgba(13, 45, 95, 0.26);
-  --shadow-lg: 0 30px 70px -28px rgba(13, 45, 95, 0.32);
+  --shadow: 0 16px 40px -18px rgba(60, 30, 30, 0.22);
+  --shadow-lg: 0 30px 70px -28px rgba(60, 26, 26, 0.28);
 
   --r-sm: 10px;
   --r: 14px;
@@ -114,11 +114,11 @@ p {
 }
 
 ::selection {
-  background: var(--blue);
+  background: var(--primary);
   color: #fff;
 }
 :focus-visible {
-  outline: 2px solid var(--blue);
+  outline: 2px solid var(--primary);
   outline-offset: 3px;
   border-radius: 3px;
 }
@@ -177,7 +177,7 @@ p {
   font-weight: 800;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--red);
+  color: var(--accent);
   margin-bottom: 14px;
 }
 .section-head {
@@ -193,7 +193,7 @@ p {
   height: 4px;
   margin-bottom: 18px;
   border-radius: 3px;
-  background: var(--red);
+  background: var(--accent);
 }
 .section-head p {
   margin-top: 14px;
@@ -225,12 +225,12 @@ p {
   flex: none;
 }
 .btn--primary {
-  background: var(--blue);
+  background: var(--primary);
   color: #fff;
-  box-shadow: 0 10px 24px -10px rgba(13, 71, 161, 0.5);
+  box-shadow: 0 10px 24px -10px rgba(211, 47, 47, 0.42);
 }
 .btn--primary:hover {
-  background: var(--blue-dark);
+  background: var(--primary-dark);
   transform: translateY(-1px);
 }
 .btn--outline {
@@ -242,10 +242,10 @@ p {
   border-color: var(--ink);
 }
 .btn--ghost {
-  color: var(--blue);
+  color: var(--primary);
 }
 .btn--ghost:hover {
-  background: var(--blue-tint);
+  background: var(--primary-tint);
 }
 .btn--on-dark {
   border: 1.5px solid rgba(255, 255, 255, 0.28);
@@ -276,7 +276,7 @@ p {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  color: var(--blue);
+  color: var(--primary);
   font-weight: 700;
   font-size: 0.92rem;
 }
@@ -316,11 +316,21 @@ p {
 }
 .brand img {
   width: auto;
-  height: 22px;
+}
+/* header : marque seule sur mobile, lockup complet dès 48em */
+.header-in .brand-mark {
+  height: 26px;
+}
+.header-in .brand-full {
+  display: none;
 }
 @media (min-width: 48em) {
-  .brand img {
-    height: 28px;
+  .header-in .brand-mark {
+    display: none;
+  }
+  .header-in .brand-full {
+    display: block;
+    height: 30px;
   }
 }
 .nav {
@@ -339,7 +349,7 @@ p {
     transition: color 0.15s ease;
   }
   .nav a:not(.btn):hover {
-    color: var(--red);
+    color: var(--accent);
   }
   .nav a.btn--primary,
   .nav a.btn--primary:hover {
@@ -413,7 +423,7 @@ p {
 .hero {
   position: relative;
   overflow: hidden;
-  background: linear-gradient(180deg, #ffffff 0%, #eef3fc 40%, var(--blue-tint) 100%);
+  background: linear-gradient(180deg, #ffffff 0%, #fdeef0 40%, var(--primary-tint) 100%);
   padding-top: clamp(20px, 4vw, 44px);
   padding-bottom: clamp(88px, 11vw, 140px);
   text-align: center;
@@ -425,7 +435,7 @@ p {
   bottom: -1px;
   width: 104%;
   height: clamp(140px, 22vw, 300px);
-  color: var(--blue-soft);
+  color: var(--primary-soft);
   pointer-events: none;
 }
 .hero-wave .fill {
@@ -436,7 +446,7 @@ p {
   opacity: 0.7;
 }
 .hero-wave .l2 {
-  color: var(--blue);
+  color: var(--primary);
   opacity: 0.4;
 }
 .hero-in {
@@ -452,7 +462,7 @@ p {
   font-weight: 800;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--red);
+  color: var(--accent);
   margin-bottom: 16px;
 }
 .hero .eyebrow::before,
@@ -460,7 +470,7 @@ p {
   content: "";
   width: 24px;
   height: 2px;
-  background: var(--red);
+  background: var(--accent);
   border-radius: 2px;
 }
 .hero h1 {
@@ -469,7 +479,7 @@ p {
   letter-spacing: -0.045em;
 }
 .hero h1 span {
-  color: var(--red);
+  color: var(--accent);
 }
 .hero-in > p {
   margin: 18px auto 0;
@@ -566,7 +576,7 @@ p {
 .cfg__f input:focus,
 .cfg__f select:focus {
   outline: none;
-  color: var(--blue);
+  color: var(--primary);
 }
 fieldset.cfg__f {
   border: 0;
@@ -586,9 +596,9 @@ fieldset.cfg__f {
   min-height: 34px;
 }
 .cfg__seg button[aria-pressed="true"] {
-  border-color: var(--blue);
-  background: var(--blue-tint);
-  color: var(--blue-dark);
+  border-color: var(--primary);
+  background: var(--primary-tint);
+  color: var(--primary-dark);
 }
 .cfg__cta {
   padding: 16px 18px;
@@ -701,7 +711,7 @@ a.veh:hover {
   font-weight: 800;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--red);
+  color: var(--accent);
 }
 .veh__name {
   font-size: 1.08rem;
@@ -740,7 +750,7 @@ a.veh:hover {
 .veh__foot svg {
   width: 16px;
   height: 16px;
-  color: var(--blue);
+  color: var(--primary);
 }
 .veh--soon {
   border-style: dashed;
@@ -767,8 +777,8 @@ a.veh:hover {
   height: 30px;
   margin-bottom: 4px;
   border-radius: 9px;
-  background: var(--blue-tint);
-  color: var(--blue);
+  background: var(--primary-tint);
+  color: var(--primary);
   font-size: 1.1rem;
   font-weight: 700;
   line-height: 1;
@@ -810,11 +820,11 @@ a.veh:hover {
   font-size: 0.92rem;
 }
 .faq-intro p a {
-  color: var(--blue);
+  color: var(--primary);
   font-weight: 600;
 }
 .faq-intro p a:hover {
-  color: var(--red);
+  color: var(--accent);
 }
 
 .faq {
@@ -857,9 +867,9 @@ a.veh:hover {
   top: 20px;
   width: 12px;
   height: 12px;
-  background: linear-gradient(var(--red), var(--red)) center / 12px 2px
+  background: linear-gradient(var(--accent), var(--accent)) center / 12px 2px
       no-repeat,
-    linear-gradient(var(--red), var(--red)) center / 2px 12px no-repeat;
+    linear-gradient(var(--accent), var(--accent)) center / 2px 12px no-repeat;
   transition: transform 0.2s ease;
 }
 .faq details[open] summary::after {
@@ -893,7 +903,7 @@ a.veh:hover {
   font-weight: 800;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--red-soft);
+  color: var(--accent-soft);
 }
 .sb-copy h2 {
   margin-top: 12px;
@@ -933,7 +943,7 @@ a.sb-pill:hover {
   background: rgba(255, 255, 255, 0.08);
 }
 a.sb-pill:hover .sb-arrow {
-  color: var(--blue-soft);
+  color: var(--primary-soft);
 }
 .sb-pill--soon {
   opacity: 0.62;
@@ -1126,7 +1136,7 @@ a.sb-pill:hover .sb-arrow {
 }
 .carousel__thumb[aria-current="true"] {
   opacity: 1;
-  box-shadow: 0 0 0 2px var(--blue);
+  box-shadow: 0 0 0 2px var(--primary);
 }
 .panel {
   background: var(--white);
@@ -1181,7 +1191,7 @@ a.sb-pill:hover .sb-arrow {
 .facts svg {
   width: 16px;
   height: 16px;
-  color: var(--blue);
+  color: var(--primary);
   flex: none;
   margin-top: 3px;
 }
@@ -1248,16 +1258,16 @@ a.sb-pill:hover .sb-arrow {
   padding-left: 1.1rem;
 }
 .prose a {
-  color: var(--blue);
+  color: var(--primary);
   font-weight: 600;
 }
 .prose a:hover {
-  color: var(--red);
+  color: var(--accent);
 }
 .notice {
   margin: 22px 0;
   padding: 15px 18px;
-  border-left: 3px solid var(--red);
+  border-left: 3px solid var(--accent);
   background: var(--soft);
   color: var(--gray);
   font-size: 0.88rem;
@@ -1268,7 +1278,7 @@ a.sb-pill:hover .sb-arrow {
 
 .footer {
   background:
-    radial-gradient(120% 140% at 15% 0%, rgba(13, 71, 161, 0.32) 0%, transparent 55%),
+    radial-gradient(120% 140% at 15% 0%, rgba(211, 47, 47, 0.22) 0%, transparent 55%),
     var(--ink);
   color: #fff;
   padding-block: var(--section-y) 28px;
@@ -1342,7 +1352,7 @@ a.sb-pill:hover .sb-arrow {
   margin-top: 16px;
   font-size: 0.95rem;
   font-weight: 700;
-  color: var(--red-soft);
+  color: var(--accent-soft);
 }
 .footer-desc {
   margin-top: 8px;
@@ -1361,7 +1371,7 @@ a.sb-pill:hover .sb-arrow {
   font-weight: 800;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--red-soft);
+  color: var(--accent-soft);
   margin-bottom: 2px;
 }
 .footer-col a,

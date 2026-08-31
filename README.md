@@ -26,21 +26,28 @@ Pages légales (`/mentions-legales`, `/politique-confidentialite`,
 
 ## Direction artistique
 
-Claire. Blanc dominant. Palette du logo, système tricolore :
-- **bleu `#0D47A1`** = action : CTA, liens, prix, coches, vague du hero, footer.
-- **rouge `#D32F2F`** (`--red-soft #f26a68` sur fond sombre) = accent : le mot
-  « éveillé. » du hero, tous les eyebrows / kickers, les icônes +/− de la FAQ,
-  les traits au-dessus des titres, les intitulés de colonnes + le slogan du
-  footer, le survol des liens de texte, le filet des encadrés légaux.
-- **gris `#757575`** = texte secondaire (token `--gray` ajusté à `#6a6a6a` pour
-  le contraste AA).
+Claire. Blanc dominant. Palette du logo, système tricolore (tokens `:root` dans
+`app/globals.css`, nommés par rôle) :
+
+- **rouge `#D32F2F`** = `--primary` = **action** : boutons/CTA, liens, prix,
+  flèche des cartes, dégradé & vague du hero, lueur du footer.
+- **bleu `#0D47A1`** = `--accent` = **accent** : le mot « éveillé. » du hero,
+  tous les eyebrows / kickers, les icônes +/− de la FAQ, les traits au-dessus
+  des titres, les intitulés de colonnes + le slogan du footer, le survol des
+  liens de texte, le filet des encadrés légaux. `--accent-soft #6f9cd6` sur
+  fond sombre.
+- **gris `#757575`** = texte secondaire (`--gray` ajusté à `#6a6a6a` pour l'AA).
 - anthracite pour les titres et le corps de texte.
 
 Typo **Manrope**.
-Header clair : fond blanc, logo en couleurs, liens anthracite, bouton bleu ; fine
-bordure basse au scroll. Menu mobile (drawer) clair. Hero sans photo : dégradé
-blanc → bleu très pâle + vague SVG. Logo : `public/brand/logo-horizontal-tight.png`
-(version détourée, sans marges). Tous les tokens dans `app/globals.css` → `:root`.
+Header clair : fond blanc, fine bordure basse au scroll ; **marque RYD seule sur
+mobile, lockup complet dès 48em**. Menu mobile (drawer) clair. Hero sans photo :
+dégradé blanc → rose très pâle + vague SVG.
+
+Logos (`public/brand/`, PNG transparents) : `logo-horizontal-tight.png` (lockup
+détouré, header desktop + footer), `logo-mark.png` (monogramme RYD seul, header
+mobile + drawer + favicon), `logo-horizontal.png` (lockup avec marges),
+`logo-stacked.png` (version verticale). Sources dans `assets/originals/`.
 
 ## Développement
 

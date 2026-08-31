@@ -68,11 +68,20 @@ export function SiteHeader() {
       <div className="wrap header-in">
         <Link href="/" className="brand" aria-label={`${company.name} — accueil`}>
           <Image
-            src="/brand/logo-horizontal-tight.png"
+            className="brand-mark"
+            src="/brand/logo-mark.png"
             alt={company.name}
-            width={2040}
-            height={224}
+            width={1099}
+            height={352}
             priority
+          />
+          <Image
+            className="brand-full"
+            src="/brand/logo-horizontal-tight.png"
+            alt=""
+            width={1804}
+            height={232}
+            aria-hidden
           />
         </Link>
 
@@ -115,11 +124,11 @@ export function SiteHeader() {
             onClick={close}
           >
             <Image
-              src="/brand/logo-horizontal-tight.png"
+              src="/brand/logo-mark.png"
               alt={company.name}
-              width={2040}
-              height={224}
-              style={{ height: 22, width: 'auto' }}
+              width={1099}
+              height={352}
+              style={{ height: 26, width: 'auto' }}
             />
           </Link>
           <button type="button" className="burger" onClick={close}>

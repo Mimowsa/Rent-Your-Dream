@@ -38,8 +38,8 @@ export function SiteFooter() {
               <Image
                 src="/brand/logo-horizontal-tight.png"
                 alt={company.name}
-                width={2040}
-                height={224}
+                width={1804}
+                height={232}
               />
             </Link>
             <p className="footer-slogan">{company.slogan}</p>
