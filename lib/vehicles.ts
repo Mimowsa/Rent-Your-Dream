@@ -82,8 +82,8 @@ export const vehicles: Vehicle[] = [
     depositMeans: 'Virement ou espèces',
     photos: [
       {
-        src: '/vehicles/megane-4/studio-blue.jpg',
-        alt: `${meganeAlt} sur fond bleu, vue avant trois-quarts`,
+        src: '/vehicles/megane-4/vitrine.jpg',
+        alt: `${meganeAlt}, vue avant trois-quarts sur fond studio`,
         caption: 'Renault Mégane 4',
       },
       {
