@@ -71,7 +71,7 @@ export const vehicles: Vehicle[] = [
     features: ['Boîte automatique', 'Diesel', 'Apple CarPlay', '5 places'],
     includedKmPerDay: 250,
     pricing: {
-      day: 80,
+      day: 70,
       weekend: 200,
       week: 400,
     },
