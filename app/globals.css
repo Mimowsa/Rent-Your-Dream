@@ -626,18 +626,19 @@ p {
   color: var(--primary);
 }
 .cfg__seg {
-  display: inline-flex;
-  align-self: flex-start;
+  display: flex;
+  width: 100%;
   border: 1.5px solid var(--line);
   border-radius: 8px;
   overflow: hidden;
 }
 .cfg__seg button {
-  padding: 6px 16px;
-  font-size: 0.76rem;
+  flex: 1;
+  padding: 8px 16px;
+  font-size: 0.78rem;
   font-weight: 700;
   color: var(--gray);
-  min-height: 32px;
+  min-height: 36px;
   transition: background-color 0.14s ease, color 0.14s ease;
 }
 .cfg__seg button + button {
