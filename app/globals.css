@@ -60,6 +60,9 @@ html {
   background: var(--white);
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: transparent;
+  /* clip (not hidden) — kills any stray horizontal scroll on iOS Safari
+     without turning html into a scroll container / breaking sticky */
+  overflow-x: clip;
 }
 html[data-scroll-behavior="smooth"] {
   scroll-behavior: smooth;
@@ -72,7 +75,8 @@ body {
   line-height: 1.6;
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
+  overflow-x: clip;
+  max-width: 100%;
 }
 
 img,
@@ -537,7 +541,7 @@ p {
 }
 .cfg__grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
 }
 .cfg__photo {
   position: relative;
@@ -572,6 +576,8 @@ p {
   color: var(--ink);
   min-height: 30px;
   width: 100%;
+  min-width: 0;
+  max-width: 100%;
 }
 .cfg__f input:focus,
 .cfg__f select:focus {
@@ -619,6 +625,8 @@ p {
   color: var(--ink);
   min-height: 30px;
   width: 100%;
+  min-width: 0;
+  max-width: 100%;
 }
 .cfg__opt input:focus {
   outline: none;
@@ -675,7 +683,7 @@ p {
 
 @media (min-width: 62em) {
   .cfg__grid {
-    grid-template-columns: 232px repeat(3, 1fr) minmax(280px, 1.5fr) minmax(176px, auto);
+    grid-template-columns: 232px repeat(3, minmax(0, 1fr)) minmax(260px, 1.4fr) minmax(176px, auto);
   }
   .cfg__photo {
     min-height: 100%;
