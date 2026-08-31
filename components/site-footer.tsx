@@ -92,6 +92,7 @@ export function SiteFooter() {
             ) : (
               <span>Téléphone · à venir</span>
             )}
+            <a href={`mailto:${company.email}`}>{company.email}</a>
             <span>{company.area}</span>
             <span>{company.deliveryNote}</span>
           </div>
