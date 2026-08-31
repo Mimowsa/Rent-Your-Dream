@@ -1,24 +1,27 @@
 /* ============================================================
-   Rent Your Dream — light, warm, confident
-   Blanc dominant · bleu #2563B8 franc · Manrope · une seule page
+   Rent Your Dream — light, confident
+   Blanc dominant · bleu #0D47A1 · accent rouge #D32F2F · gris #757575
+   Manrope · une seule page
    ============================================================ */
 
 :root {
   --white: #ffffff;
-  --soft: #f3f6f9; /* light grey — section alternance */
-  --blue: #2563b8;
-  --blue-dark: #1d4f97;
-  --blue-soft: #8fb3df;
-  --blue-tint: #eaf2fb;
+  --soft: #f4f5f7; /* light grey — section alternance */
+  --blue: #0d47a1; /* brand blue — CTA, liens, vague du hero */
+  --blue-dark: #0a3a84; /* hover / header scrollé */
+  --blue-soft: #6f9cd6; /* bleu clair — trait de vague, filets */
+  --blue-tint: #e8eefa; /* bleu très pâle — dégradé hero, état actif */
+  --red: #d32f2f; /* brand red — accent (traits, survols) */
+  --red-dark: #b02626;
   --ink: #202732;
   --ink-soft: #3c4552;
-  --gray: #5c6472;
-  --line: #e3e8ee;
-  --line-soft: #eef1f5;
+  --gray: #6a6a6a; /* gris texte secondaire (famille #757575, contraste AA) */
+  --line: #e4e4e7;
+  --line-soft: #eeeef1;
 
-  --shadow-sm: 0 1px 2px rgba(32, 39, 50, 0.06);
-  --shadow: 0 16px 40px -18px rgba(29, 55, 100, 0.28);
-  --shadow-lg: 0 30px 70px -28px rgba(29, 55, 100, 0.34);
+  --shadow-sm: 0 1px 2px rgba(20, 24, 33, 0.06);
+  --shadow: 0 16px 40px -18px rgba(13, 45, 95, 0.26);
+  --shadow-lg: 0 30px 70px -28px rgba(13, 45, 95, 0.32);
 
   --r-sm: 10px;
   --r: 14px;
@@ -189,7 +192,7 @@ p {
   height: 4px;
   margin-bottom: 18px;
   border-radius: 3px;
-  background: var(--blue);
+  background: var(--red);
 }
 .section-head p {
   margin-top: 14px;
@@ -223,7 +226,7 @@ p {
 .btn--primary {
   background: var(--blue);
   color: #fff;
-  box-shadow: 0 10px 24px -10px rgba(37, 99, 184, 0.55);
+  box-shadow: 0 10px 24px -10px rgba(13, 71, 161, 0.5);
 }
 .btn--primary:hover {
   background: var(--blue-dark);
@@ -261,7 +264,7 @@ p {
 }
 .btn:disabled,
 .btn[aria-disabled="true"] {
-  background: #c8d2df;
+  background: #ccced3;
   color: #fff;
   box-shadow: none;
   cursor: not-allowed;
@@ -335,7 +338,7 @@ p {
     transition: color 0.15s ease;
   }
   .nav a:not(.btn):hover {
-    color: var(--blue);
+    color: var(--red);
   }
   .nav a.btn--primary,
   .nav a.btn--primary:hover {
@@ -409,7 +412,7 @@ p {
 .hero {
   position: relative;
   overflow: hidden;
-  background: linear-gradient(180deg, #ffffff 0%, #f2f7fd 40%, var(--blue-tint) 100%);
+  background: linear-gradient(180deg, #ffffff 0%, #eef3fc 40%, var(--blue-tint) 100%);
   padding-top: clamp(20px, 4vw, 44px);
   padding-bottom: clamp(88px, 11vw, 140px);
   text-align: center;
@@ -456,7 +459,7 @@ p {
   content: "";
   width: 24px;
   height: 2px;
-  background: var(--blue-soft);
+  background: var(--red);
   border-radius: 2px;
 }
 .hero h1 {
@@ -808,6 +811,9 @@ a.veh:hover {
 .faq-intro p a {
   color: var(--blue);
   font-weight: 600;
+}
+.faq-intro p a:hover {
+  color: var(--red);
 }
 
 .faq {
@@ -1244,6 +1250,9 @@ a.sb-pill:hover .sb-arrow {
   color: var(--blue);
   font-weight: 600;
 }
+.prose a:hover {
+  color: var(--red);
+}
 .notice {
   margin: 22px 0;
   padding: 15px 18px;
@@ -1258,7 +1267,7 @@ a.sb-pill:hover .sb-arrow {
 
 .footer {
   background:
-    radial-gradient(120% 140% at 15% 0%, rgba(37, 99, 184, 0.28) 0%, transparent 55%),
+    radial-gradient(120% 140% at 15% 0%, rgba(13, 71, 161, 0.32) 0%, transparent 55%),
     var(--ink);
   color: #fff;
   padding-block: var(--section-y) 28px;

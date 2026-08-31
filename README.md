@@ -26,14 +26,15 @@ Pages légales (`/mentions-legales`, `/politique-confidentialite`,
 
 ## Direction artistique
 
-Claire. Blanc dominant, bleu `#2563B8` franc (CTA, liens, chiffres, la vague du
-hero), anthracite pour le texte, gris clair `--soft` pour l'alternance de
-sections. Typo **Manrope**. Header clair : fond blanc translucide (léger flou),
-logo PNG en couleurs, liens anthracite, bouton bleu ; une fine bordure basse
-apparaît au scroll. Le menu mobile (drawer) est clair. Hero sans photo : dégradé
-blanc → bleu très pâle + une vague SVG (reprise de la ligne du logo). Le logo
-utilise `public/brand/logo-horizontal-tight.png` (version détourée, sans marges).
-Tokens dans `app/globals.css` → `:root`.
+Claire. Blanc dominant. Palette du logo : **bleu `#0D47A1`** (CTA, liens,
+chiffres, vague du hero, footer), **rouge `#D32F2F`** en accent (trait au-dessus
+des titres, filets de l'eyebrow, survol des liens de texte), **gris `#757575`**
+pour le texte secondaire (token `--gray` légèrement assombri à `#6a6a6a` pour le
+contraste AA). Anthracite pour les titres et le corps de texte. Typo **Manrope**.
+Header clair : fond blanc, logo en couleurs, liens anthracite, bouton bleu ; fine
+bordure basse au scroll. Menu mobile (drawer) clair. Hero sans photo : dégradé
+blanc → bleu très pâle + vague SVG. Logo : `public/brand/logo-horizontal-tight.png`
+(version détourée, sans marges). Tous les tokens dans `app/globals.css` → `:root`.
 
 ## Développement
 
