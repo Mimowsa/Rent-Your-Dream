@@ -110,3 +110,13 @@ export const whatsappReady = company.whatsappNumber !== null
 export const contactChatLink = company.whatsappNumber
   ? `https://wa.me/${company.whatsappNumber}`
   : `mailto:${company.email}`
+
+/**
+ * "I want to book" quick link for the hero CTA — opens WhatsApp with a
+ * short generic message (no dates yet, that's what the configurator is for).
+ */
+export const bookingIntentLink = company.whatsappNumber
+  ? `https://wa.me/${company.whatsappNumber}?text=${encodeURIComponent(
+      'Bonjour, je souhaite obtenir des informations pour réserver un véhicule.',
+    )}`
+  : `mailto:${company.email}`

@@ -5,7 +5,7 @@ import { FaqAccordion, faqJsonLd } from '@/components/faq-accordion'
 import { SocialBand } from '@/components/social-section'
 import { euros, vehicles } from '@/lib/vehicles'
 import { company } from '@/lib/company'
-import { contactChatLink } from '@/lib/whatsapp'
+import { bookingIntentLink, contactChatLink } from '@/lib/whatsapp'
 
 export default function HomePage() {
   const shown = vehicles.slice(0, 4)
@@ -57,9 +57,14 @@ export default function HomePage() {
           </h1>
           <p>Louez la voiture, prenez la route.</p>
           <div className="hero-actions">
-            <Link href="#reserver" className="btn btn--primary">
+            <a
+              href={bookingIntentLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn--primary"
+            >
               Réserver
-            </Link>
+            </a>
             <Link href="#vehicules" className="btn btn--outline">
               Voir les véhicules
             </Link>
