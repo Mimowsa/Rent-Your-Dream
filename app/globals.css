@@ -584,6 +584,14 @@ p {
   outline: none;
   color: var(--primary);
 }
+.cfg__f input.cfg__time {
+  margin-top: 3px;
+  padding-top: 6px;
+  border-top: 1px solid var(--line-soft);
+  font-size: 0.84rem;
+  color: var(--gray);
+  min-height: 26px;
+}
 .cfg__f input[type="number"] {
   appearance: textfield;
   -moz-appearance: textfield;

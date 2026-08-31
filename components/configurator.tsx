@@ -47,7 +47,9 @@ export function ConfiguratorBand() {
 
   const [slug, setSlug] = useState(primaryVehicle.slug)
   const [startDate, setStartDate] = useState('')
+  const [startTime, setStartTime] = useState('10:00')
   const [endDate, setEndDate] = useState('')
+  const [endTime, setEndTime] = useState('10:00')
   const [extraKmWanted, setExtraKmWanted] = useState(false)
   const [extraKm, setExtraKm] = useState('')
   const [delivery, setDelivery] = useState(false)
@@ -66,9 +68,9 @@ export function ConfiguratorBand() {
     lastName: '',
     vehicleName: vehicle.name,
     startDate,
-    startTime: '10:00',
+    startTime,
     endDate,
-    endTime: '10:00',
+    endTime,
     extraKmWanted,
     extraKm: extraKmWanted ? Math.max(0, Math.round(Number(extraKm) || 0)) : 0,
     delivery,
@@ -79,7 +81,7 @@ export function ConfiguratorBand() {
   const link = useMemo(
     () => contactLink(buildWhatsappMessage(selection, vehicle)),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [slug, startDate, endDate, extraKmWanted, extraKm, delivery, deliveryCity],
+    [slug, startDate, startTime, endDate, endTime, extraKmWanted, extraKm, delivery, deliveryCity],
   )
 
   return (
@@ -123,6 +125,14 @@ export function ConfiguratorBand() {
               if (endDate && e.target.value > endDate) setEndDate(e.target.value)
             }}
           />
+          <input
+            className="cfg__time"
+            aria-label="Heure de départ"
+            type="time"
+            step={900}
+            value={startTime}
+            onChange={(e) => setStartTime(e.target.value)}
+          />
         </div>
 
         <div className="cfg__f">
@@ -133,6 +143,14 @@ export function ConfiguratorBand() {
             min={startDate || min}
             value={endDate}
             onChange={(e) => setEndDate(e.target.value)}
+          />
+          <input
+            className="cfg__time"
+            aria-label="Heure de retour"
+            type="time"
+            step={900}
+            value={endTime}
+            onChange={(e) => setEndTime(e.target.value)}
           />
         </div>
 
