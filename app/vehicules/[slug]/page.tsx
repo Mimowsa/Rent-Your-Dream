@@ -93,7 +93,7 @@ export default async function VehicleDetail({ params }: { params: Promise<{ slug
               <Check /> {v.includedKmPerDay} km / jour inclus
             </li>
             <li>
-              <Check /> Illimité : +{euros(v.pricing.unlimitedKmSupplement)} / location
+              <Check /> Kilomètres supplémentaires possibles — nous consulter
             </li>
             <li>
               <Check /> Caution {euros(v.deposit)} · {v.depositMeans.toLowerCase()}

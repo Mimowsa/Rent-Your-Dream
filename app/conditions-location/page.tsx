@@ -37,8 +37,8 @@ export default function ConditionsPage() {
         <li>Forfait 7 jours : {euros(v.pricing.week)}.</li>
         <li>{v.includedKmPerDay} km par jour inclus.</li>
         <li>
-          Option kilométrage illimité : {euros(v.pricing.unlimitedKmSupplement)} par
-          location.
+          Kilomètres supplémentaires au-delà du forfait : possibles, tarif à
+          convenir lors de la demande.
         </li>
       </ul>
 

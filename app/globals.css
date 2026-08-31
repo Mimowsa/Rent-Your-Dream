@@ -578,34 +578,41 @@ p {
   outline: none;
   color: var(--primary);
 }
-fieldset.cfg__f {
-  border: 0;
+.cfg__f input[type="number"] {
+  appearance: textfield;
+  -moz-appearance: textfield;
 }
-.cfg__seg {
-  display: flex;
-  gap: 6px;
-}
-.cfg__seg button {
-  flex: 1;
-  border: 1.5px solid var(--line);
-  border-radius: 8px;
-  padding: 7px 6px;
-  font-size: 0.72rem;
-  font-weight: 700;
-  color: var(--gray);
-  min-height: 34px;
-}
-.cfg__seg button[aria-pressed="true"] {
-  border-color: var(--primary);
-  background: var(--primary-tint);
-  color: var(--primary-dark);
+.cfg__f input[type="number"]::-webkit-outer-spin-button,
+.cfg__f input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 .cfg__cta {
   padding: 16px 18px;
   border-top: 1px solid var(--line-soft);
   display: grid;
-  gap: 8px;
+  gap: 12px;
   background: var(--soft);
+}
+.cfg__check {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--ink);
+  cursor: pointer;
+}
+.cfg__check input {
+  width: 17px;
+  height: 17px;
+  flex: none;
+  accent-color: var(--primary);
+  cursor: pointer;
+}
+.cfg__cta .cfg__f--slot {
+  border: 0;
+  padding: 0;
 }
 .cfg__cta .btn {
   width: 100%;
@@ -626,7 +633,7 @@ fieldset.cfg__f {
 
 @media (min-width: 62em) {
   .cfg__grid {
-    grid-template-columns: 280px repeat(3, 1fr) minmax(220px, auto);
+    grid-template-columns: 240px repeat(4, 1fr) minmax(252px, auto);
   }
   .cfg__photo {
     min-height: 100%;
@@ -635,14 +642,14 @@ fieldset.cfg__f {
     border-top: 0;
     border-left: 1px solid var(--line-soft);
     justify-content: center;
-    padding: 18px 20px;
+    padding: 18px 18px;
   }
   .cfg__cta {
     border-top: 0;
     border-left: 1px solid var(--line-soft);
     align-content: center;
     background: var(--white);
-    min-width: 190px;
+    min-width: 200px;
   }
   .cfg__facts {
     grid-column: 1 / -1;

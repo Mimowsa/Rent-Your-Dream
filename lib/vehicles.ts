@@ -20,8 +20,6 @@ export type VehiclePricing = {
   weekend: number
   /** Price for 7 days, in euros. */
   week: number
-  /** One-off supplement for the unlimited-mileage option, in euros. */
-  unlimitedKmSupplement: number
 }
 
 export type Vehicle = {
@@ -76,7 +74,6 @@ export const vehicles: Vehicle[] = [
       day: 80,
       weekend: 200,
       week: 400,
-      unlimitedKmSupplement: 100,
     },
     deposit: 1500,
     depositMeans: 'Virement ou espèces',

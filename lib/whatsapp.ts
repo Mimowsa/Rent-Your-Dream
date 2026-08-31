@@ -1,14 +1,11 @@
 import { company } from './company'
-import { euros, type Vehicle } from './vehicles'
+import type { Vehicle } from './vehicles'
 
 /**
  * Turns the configurator selection into a clean, human-readable message and the
  * link that opens it. The site never performs a real booking — the goal is to
  * land the visitor in a conversation with everything already written out.
  */
-
-export type MileageOption = 'included' | 'unlimited'
-export type DeliveryOption = 'pickup' | 'delivery'
 
 export type BookingSelection = {
   vehicleName: string
@@ -18,8 +15,12 @@ export type BookingSelection = {
   startTime: string // hh:mm
   endDate: string
   endTime: string
-  mileage: MileageOption
-  delivery: DeliveryOption
+  /** Kilomètres supplémentaires souhaités au-delà du forfait (0 = aucun). */
+  extraKm: number
+  /** true : le client demande une livraison du véhicule. */
+  delivery: boolean
+  /** Ville de livraison saisie par le client (si `delivery`). */
+  deliveryCity: string
   note: string
 }
 
@@ -54,20 +55,20 @@ export function buildWhatsappMessage(sel: BookingSelection, vehicle?: Vehicle): 
   if (end) lines.push(`Retour : ${end}${sel.endTime ? ` à ${sel.endTime}` : ''}`)
 
   lines.push(
-    sel.mileage === 'unlimited'
-      ? `Kilométrage : illimité${
-          vehicle ? ` (+${euros(vehicle.pricing.unlimitedKmSupplement)} / location)` : ''
-        }`
-      : `Kilométrage : formule incluse${
-          vehicle ? ` (${vehicle.includedKmPerDay} km / jour)` : ''
-        }`,
+    `Kilométrage : forfait inclus${
+      vehicle ? ` (${vehicle.includedKmPerDay} km / jour)` : ''
+    }`,
   )
+  if (sel.extraKm > 0) {
+    lines.push(`Kilomètres supplémentaires souhaités : environ ${sel.extraKm} km`)
+  }
 
-  lines.push(
-    sel.delivery === 'delivery'
-      ? 'Livraison : souhaitée (à préciser ensemble)'
-      : `Retrait : sur place en ${company.area}`,
-  )
+  if (sel.delivery) {
+    const city = sel.deliveryCity.trim()
+    lines.push(`Livraison souhaitée : ${city ? city : 'ville à préciser'}`)
+  } else {
+    lines.push(`Retrait : sur place en ${company.area}`)
+  }
 
   if (sel.note.trim()) {
     lines.push('')
