@@ -1,3 +1,7 @@
+'use client'
+
+import { useI18n } from '@/components/locale-provider'
+
 import { company } from '@/lib/company'
 
 /* --- Brand marks, in their own colours, for the white/yellow badges --- */
@@ -6,13 +10,28 @@ function IgMark() {
   return (
     <svg viewBox="0 0 24 24" fill="none" aria-hidden width={22} height={22}>
       <defs>
-        <linearGradient id="ig" x1="2" y1="22" x2="22" y2="2" gradientUnits="userSpaceOnUse">
+        <linearGradient
+          id="ig"
+          x1="2"
+          y1="22"
+          x2="22"
+          y2="2"
+          gradientUnits="userSpaceOnUse"
+        >
           <stop stopColor="#F58529" />
           <stop offset="0.5" stopColor="#DD2A7B" />
           <stop offset="1" stopColor="#8134AF" />
         </linearGradient>
       </defs>
-      <rect x="3" y="3" width="18" height="18" rx="5" stroke="url(#ig)" strokeWidth="2" />
+      <rect
+        x="3"
+        y="3"
+        width="18"
+        height="18"
+        rx="5"
+        stroke="url(#ig)"
+        strokeWidth="2"
+      />
       <circle cx="12" cy="12" r="4" stroke="url(#ig)" strokeWidth="2" />
       <circle cx="17.4" cy="6.6" r="1.3" fill="url(#ig)" />
     </svg>
@@ -35,36 +54,61 @@ function SnapMark() {
 
 function ArrowUR() {
   return (
-    <svg viewBox="0 0 24 24" fill="none" aria-hidden className="sb-arrow" width={16} height={16}>
-      <path d="M7 7h10v10M7 17 17 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden
+      className="sb-arrow"
+      width={16}
+      height={16}
+    >
+      <path
+        d="M7 7h10v10M7 17 17 7"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   )
 }
 
 const entries = [
-  { key: 'snapchat' as const, name: 'Snapchat', Mark: SnapMark, badge: '#FFFC00' },
-  { key: 'instagram' as const, name: 'Instagram', Mark: IgMark, badge: '#ffffff' },
+  {
+    key: 'snapchat' as const,
+    name: 'Snapchat',
+    Mark: SnapMark,
+    badge: '#FFFC00',
+  },
+  {
+    key: 'instagram' as const,
+    name: 'Instagram',
+    Mark: IgMark,
+    badge: '#ffffff',
+  },
   { key: 'tiktok' as const, name: 'TikTok', Mark: TtMark, badge: '#ffffff' },
 ]
 
-/**
- * Dark contrast band — "Suivez Rent Your Dream" à gauche, 3 pastilles réseaux à
- * droite (badge logo blanc/jaune + nom + identifiant + flèche). Snapchat est
- * cliquable ; Instagram et TikTok s'affichent "Bientôt", non cliquables.
- */
 export function SocialBand() {
+  const { t, locale } = useI18n()
+
   return (
     <div className="sb">
       <div className="sb-card">
         <div className="sb-copy">
-          <p className="sb-kick">Suivez {company.name}</p>
+          <p className="sb-kick">
+            {t('Suivez ')}
+            {t(company.name)}
+          </p>
           <h2>
-            Retrouvez-nous
+            {t('Retrouvez-nous')}
             <br />
-            sur les réseaux.
+            {t('sur les réseaux.')}
           </h2>
           <p className="sb-sub">
-            Les véhicules, les nouveautés et les disponibilités, en direct.
+            {t(
+              'Les véhicules, les nouveautés et les disponibilités, en direct.',
+            )}
           </p>
         </div>
 
@@ -77,7 +121,7 @@ export function SocialBand() {
                   <Mark />
                 </span>
                 <span className="sb-meta">
-                  <b>{name}</b>
+                  <b>{t(name)}</b>
                   <span>{c.handle ?? 'Bientôt'}</span>
                 </span>
                 {c.url && <ArrowUR />}
@@ -91,11 +135,11 @@ export function SocialBand() {
                 rel="noopener noreferrer"
                 className="sb-pill"
               >
-                {inner}
+                {t(inner)}
               </a>
             ) : (
               <span key={key} className="sb-pill sb-pill--soon">
-                {inner}
+                {t(inner)}
               </span>
             )
           })}

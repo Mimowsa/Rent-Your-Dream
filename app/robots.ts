@@ -1,12 +1,12 @@
 import type { MetadataRoute } from 'next'
+import { absoluteUrl } from '@/lib/seo'
 
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: {
       userAgent: '*',
       allow: '/',
-      disallow: ['/mentions-legales', '/politique-confidentialite', '/conditions-location'],
     },
-    sitemap: 'https://rentyourdream.fr/sitemap.xml',
+    sitemap: absoluteUrl('/sitemap.xml'),
   }
 }

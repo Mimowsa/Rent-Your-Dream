@@ -1,52 +1,57 @@
 import { company } from '@/lib/company'
-
-/**
- * FAQ content. Answers stay generic across the fleet: tarifs, caution et
- * kilométrage varient d'un véhicule à l'autre et sont indiqués sur chaque fiche.
- * Les passages « à préciser » signalent ce qui n'est pas encore contractuellement
- * fixé — à compléter sans toucher au reste.
- */
+import { euros, primaryVehicle } from '@/lib/vehicles'
+import { rentalPolicy } from '@/lib/rental-policy'
 
 export type FaqItem = { question: string; answer: string }
 
+const vehicle = primaryVehicle
+
+/** The current fleet's confirmed terms, shared by the visible FAQ and JSON-LD. */
 export const faq: FaqItem[] = [
   {
-    question: 'Quels documents sont nécessaires pour louer un véhicule ?',
-    answer:
-      'Une pièce d’identité en cours de validité, un permis de conduire et un justificatif de domicile récent. L’âge minimum et l’ancienneté de permis exigés seront confirmés lors de votre demande — écrivez-nous pour vérifier votre situation.',
+    question: 'À partir de quel âge puis-je louer ?',
+    answer: `L’âge minimum et l’ancienneté du permis dépendent du véhicule choisi. Pour la ${vehicle.name}, il faut avoir au moins ${vehicle.minimumAge} ans et le permis depuis ${vehicle.minimumLicenseYears} an. Consultez la fiche du véhicule ; ces conditions sont confirmées dans le contrat.`,
   },
   {
-    question: 'Quel est le montant de la caution ?',
+    question: 'Quels documents sont nécessaires ?',
     answer:
-      'La caution dépend du véhicule : elle est indiquée sur chaque fiche. Elle peut être réglée par virement ou en espèces et vous est restituée après restitution du véhicule en bon état.',
+      'Une pièce d’identité en cours de validité, un permis de conduire valide et un justificatif de domicile récent sont à prévoir pour établir le contrat. Aucun de ces documents n’est demandé dans le configurateur du site. Nous vous précisons les modalités de vérification lors de la confirmation.',
+  },
+  {
+    question: 'Quels sont les tarifs de location ?',
+    answer: `Chaque véhicule possède ses propres tarifs, affichés sur sa fiche. Par exemple, la ${vehicle.name} est à ${euros(vehicle.pricing.day)} TTC pour 24 heures, ${euros(vehicle.pricing.weekend)} TTC pour un week-end de ${vehicle.pricing.weekendHours} heures et ${euros(vehicle.pricing.week)} TTC pour 7 jours. Les horaires, les options éventuelles et le prix total sont confirmés par écrit avant votre engagement.`,
+  },
+  {
+    question: 'L’assurance est-elle incluse ?',
+    answer: `La responsabilité civile doit être couverte pour toute location. La couverture applicable à la ${vehicle.name}, les conducteurs autorisés, garanties, exclusions et franchises restent à vérifier avec le fournisseur et son assureur. Ces informations vous seront remises avant votre engagement ; aucune réservation ne sera confirmée avant ces vérifications.`,
+  },
+  {
+    question: 'Quel est le montant de la caution et quand est-elle rendue ?',
+    answer: `Le montant dépend du véhicule et reste distinct du prix de location. Pour la ${vehicle.name}, la caution est de ${euros(vehicle.deposit)}, par ${vehicle.depositMeans.toLocaleLowerCase('fr-FR')}. Elle est restituée le jour du retour, après l’état des lieux et sous réserve des sommes dues et justifiées. Les délais bancaires peuvent s’ajouter.`,
   },
   {
     question: 'Combien de kilomètres sont inclus ?',
-    answer:
-      'Chaque véhicule inclut un forfait kilométrique journalier, précisé sur sa fiche (par exemple 250 km / jour). Les kilomètres supplémentaires éventuels sont décomptés selon un barème communiqué avant le départ.',
+    answer: `Le kilométrage inclus est indiqué sur la fiche de chaque véhicule : ${vehicle.includedKmPerDay} km par jour pour la ${vehicle.name}. Prévoyez-vous de rouler davantage ? Signalez-le dans votre demande. Le tarif des kilomètres supplémentaires dépend du véhicule et vous est communiqué avant votre engagement.`,
   },
   {
-    question: 'Et si j’ai besoin de plus de kilomètres ?',
+    question: 'Comment effectuer une demande de location ?',
     answer:
-      'C’est possible : indiquez le nombre de kilomètres supplémentaires souhaités dans le configurateur (« Km supplémentaires ? »). Nous vous communiquons le tarif correspondant lors de la confirmation de votre demande.',
-  },
-  {
-    question: 'Comment effectuer une réservation ?',
-    answer:
-      'Choisissez le véhicule et vos dates dans le configurateur : il prépare un message récapitulatif. Vous l’envoyez sur WhatsApp en un clic (ou par e-mail si vous préférez) et nous vous confirmons la disponibilité directement.',
+      'Choisissez le véhicule, la durée et vos dates dans le configurateur. Il prépare votre récapitulatif, à envoyer sur WhatsApp. La demande est sans engagement : la disponibilité, les horaires et le prix total sont confirmés ensuite par écrit. Aucun paiement n’est effectué sur le site.',
   },
   {
     question: 'Quels moyens de paiement sont acceptés ?',
-    answer:
-      'Les moyens de paiement acceptés pour la location et pour la caution sont confirmés lors de l’échange de réservation. La caution est aujourd’hui prise par virement ou en espèces.',
+    answer: `Les modalités de paiement sont précisées dans le devis avant votre engagement. La fiche de chaque véhicule indique celles de la caution : pour la ${vehicle.name}, le moyen prévu est le ${vehicle.depositMeans.toLocaleLowerCase('fr-FR')}. Les espèces ne sont possibles que lorsqu’une exception légale s’applique et est vérifiée. Aucun paiement n’est encaissé sur le site.`,
   },
   {
-    question: 'Puis-je réserver pour un week-end ?',
-    answer:
-      'Oui. Un forfait week-end (du vendredi au dimanche) est proposé ; son tarif varie selon le véhicule et figure sur sa fiche. Indiquez vos horaires souhaités dans votre demande.',
+    question: 'Puis-je louer pour un week-end ?',
+    answer: `Oui, selon les forfaits et les disponibilités du véhicule choisi. Par exemple, le forfait week-end de la ${vehicle.name} est de ${euros(vehicle.pricing.weekend)} TTC pour ${vehicle.pricing.weekendHours} heures. Indiquez vos horaires souhaités dans la demande pour les faire confirmer.`,
   },
   {
-    question: 'Proposez-vous la livraison du véhicule ?',
-    answer: `La remise se fait en ${company.area}. Une livraison ailleurs en France est envisageable selon les cas : indiquez-le dans votre demande et nous verrons ensemble les modalités.`,
+    question: 'Où récupérer le véhicule ? La livraison est-elle possible ?',
+    answer: `La remise se fait en ${company.area}, à un lieu convenu lors de la confirmation. Une livraison ailleurs en France est possible sur demande, selon disponibilité et devis. Le siège administratif à Bagnolet n’est pas un point de retrait annoncé.`,
+  },
+  {
+    question: 'Puis-je annuler ma demande ou ma location ?',
+    answer: `Une simple demande de disponibilité ne vous engage pas. Pour une réservation, des arrhes de ${rentalPolicy.arrhesPercent} % sont demandées. Elles sont remboursées si vous prévenez au moins ${rentalPolicy.cancellationNoticeDays} jours avant le départ convenu ; en dessous de ce délai, elles sont conservées. Consultez la page Annulation et remboursement pour les conditions et vos droits.`,
   },
 ]

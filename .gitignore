@@ -14,3 +14,6 @@ next-env.d.ts
 
 # scratch dump of raw source images (kept locally; canonical copies live in assets/originals)
 /Src
+
+# Local browser verification screenshots
+/artifacts

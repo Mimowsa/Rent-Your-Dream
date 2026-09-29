@@ -14,10 +14,11 @@ export type VehiclePhoto = {
 }
 
 export type VehiclePricing = {
-  /** Price for 24 hours, in euros. */
+  /** Consumer price including taxes for 24 hours, in euros. */
   day: number
-  /** Price for a weekend (Friday → Sunday), in euros. */
+  /** Price for the vehicle’s weekend duration, in euros. */
   weekend: number
+  weekendHours: number
   /** Price for 7 days, in euros. */
   week: number
 }
@@ -45,6 +46,12 @@ export type Vehicle = {
   /** Security deposit, in euros. */
   deposit: number
   depositMeans: string
+  minimumAge: number
+  minimumLicenseYears: number
+  /** Null until the supplier and insurer confirm coverage of sub-rental. */
+  insuranceIncluded: boolean | null
+  /** Return is subject to the inspection and any justified amounts due. */
+  depositReturn: 'same-day' | 'specified-in-contract'
 
   /** First photo is the primary / hero image. */
   photos: VehiclePhoto[]
@@ -69,42 +76,47 @@ export const vehicles: Vehicle[] = [
     transmission: 'Automatique',
     fuel: 'Diesel',
     features: ['Boîte automatique', 'Diesel', 'Apple CarPlay', '5 places'],
-    includedKmPerDay: 250,
+    includedKmPerDay: 200,
     pricing: {
-      day: 70,
-      weekend: 200,
-      week: 400,
+      day: 60,
+      weekend: 150,
+      weekendHours: 48,
+      week: 350,
     },
-    deposit: 1500,
-    depositMeans: 'Virement ou espèces',
+    deposit: 1000,
+    depositMeans: 'Virement',
+    minimumAge: 20,
+    minimumLicenseYears: 1,
+    insuranceIncluded: null,
+    depositReturn: 'same-day',
     photos: [
       {
-        src: '/vehicles/megane-4/vitrine.jpg',
+        src: '/vehicles/megane-4/vitrine.webp',
         alt: `${meganeAlt}, vue avant trois-quarts sur fond studio`,
         caption: 'Renault Mégane 4',
       },
       {
-        src: '/vehicles/megane-4/front-3q.jpg',
+        src: '/vehicles/megane-4/front-3q.webp',
         alt: `${meganeAlt}, vue avant trois-quarts`,
         caption: 'Vue avant trois-quarts',
       },
       {
-        src: '/vehicles/megane-4/rear-3q.jpg',
+        src: '/vehicles/megane-4/rear-3q.webp',
         alt: `${meganeAlt}, vue arrière trois-quarts`,
         caption: 'Vue arrière',
       },
       {
-        src: '/vehicles/megane-4/front-low.jpg',
+        src: '/vehicles/megane-4/front-low.webp',
         alt: `${meganeAlt}, vue avant en contre-plongée`,
         caption: 'Face avant',
       },
       {
-        src: '/vehicles/megane-4/interior-carplay.jpg',
+        src: '/vehicles/megane-4/interior-carplay.webp',
         alt: 'Habitacle de la Mégane 4 avec écran Apple CarPlay et boîte automatique',
         caption: 'Apple CarPlay · boîte automatique',
       },
       {
-        src: '/vehicles/megane-4/wheel-detail.jpg',
+        src: '/vehicles/megane-4/wheel-detail.webp',
         alt: 'Détail de la jante et de la carrosserie de la Mégane 4',
         caption: 'Finition et jantes alliage',
       },

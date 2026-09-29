@@ -1,11 +1,11 @@
 'use client'
 
+import { useI18n } from '@/components/locale-provider'
+
 import { useCallback, useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import { ArrowRight } from '@/components/icons'
 import type { VehiclePhoto } from '@/lib/vehicles'
-
-const AUTOPLAY_MS = 4000
 
 function prefersReducedMotion() {
   return (
@@ -14,13 +14,7 @@ function prefersReducedMotion() {
   )
 }
 
-/**
- * Photo carousel for the vehicle page: one large scroll-snap image with
- * previous / next buttons and a counter, plus a thumbnail strip underneath.
- * Auto-advances every 4 s, looping — pauses on hover / focus / hidden tab and
- * is disabled when the user prefers reduced motion. Swipe on touch, arrow keys
- * on focus.
- */
+/** Photo gallery with touch swiping, keyboard arrows and labeled controls. */
 export function VehicleCarousel({
   photos,
   name,
@@ -28,10 +22,11 @@ export function VehicleCarousel({
   photos: VehiclePhoto[]
   name: string
 }) {
+  const { t, locale } = useI18n()
+
   const trackRef = useRef<HTMLDivElement>(null)
   const thumbsRef = useRef<HTMLDivElement>(null)
   const [index, setIndex] = useState(0)
-  const [paused, setPaused] = useState(false)
   const count = photos.length
 
   const go = useCallback(
@@ -69,25 +64,18 @@ export function VehicleCarousel({
   useEffect(() => {
     const strip = thumbsRef.current
     const active = strip?.children[index] as HTMLElement | undefined
-    active?.scrollIntoView({ block: 'nearest', inline: 'nearest' })
+    if (strip && active)
+      strip.scrollTo({
+        left: Math.max(
+          0,
+          active.offsetLeft -
+            strip.offsetLeft -
+            strip.clientWidth / 2 +
+            active.clientWidth / 2,
+        ),
+        behavior: 'auto',
+      })
   }, [index])
-
-  // autoplay — every 4 s, looping. Restarts whenever index or paused changes.
-  useEffect(() => {
-    if (count < 2 || paused || prefersReducedMotion()) return
-    const id = window.setInterval(() => {
-      const atEnd = index >= count - 1
-      go(atEnd ? 0 : index + 1, atEnd)
-    }, AUTOPLAY_MS)
-    return () => window.clearInterval(id)
-  }, [index, paused, count, go])
-
-  // pause while the tab is hidden
-  useEffect(() => {
-    const onVisibility = () => setPaused(document.hidden)
-    document.addEventListener('visibilitychange', onVisibility)
-    return () => document.removeEventListener('visibilitychange', onVisibility)
-  }, [])
 
   if (count === 0) return null
 
@@ -95,14 +83,8 @@ export function VehicleCarousel({
     <div
       className="carousel"
       role="group"
-      aria-roledescription="carrousel"
-      aria-label={`Photos — ${name}`}
-      onPointerEnter={() => setPaused(true)}
-      onPointerLeave={() => setPaused(false)}
-      onFocusCapture={() => setPaused(true)}
-      onBlurCapture={(e) => {
-        if (!e.currentTarget.contains(e.relatedTarget as Node)) setPaused(false)
-      }}
+      aria-roledescription={t('carrousel')}
+      aria-label={t(`Photos — ${name}`)}
     >
       <div className="carousel__stage">
         <div
@@ -123,18 +105,18 @@ export function VehicleCarousel({
             <figure
               className="carousel__slide"
               key={p.src}
-              aria-roledescription="diapositive"
-              aria-label={`${i + 1} sur ${count}`}
+              aria-roledescription={t('diapositive')}
+              aria-label={t(`${i + 1} sur ${count}`)}
             >
               <Image
                 src={p.src}
-                alt={p.alt}
+                alt={t(p.alt)}
                 fill
                 sizes="(max-width: 60em) 100vw, 58vw"
-                priority={i === 0}
+                loading="lazy"
                 style={{ objectFit: 'cover' }}
               />
-              {p.caption && <figcaption>{p.caption}</figcaption>}
+              {p.caption && <figcaption>{t(p.caption)}</figcaption>}
             </figure>
           ))}
         </div>
@@ -146,7 +128,7 @@ export function VehicleCarousel({
               className="carousel__nav carousel__nav--prev"
               onClick={() => go(index - 1)}
               disabled={index === 0}
-              aria-label="Photo précédente"
+              aria-label={t('Photo précédente')}
             >
               <ArrowRight />
             </button>
@@ -155,12 +137,13 @@ export function VehicleCarousel({
               className="carousel__nav carousel__nav--next"
               onClick={() => go(index + 1)}
               disabled={index === count - 1}
-              aria-label="Photo suivante"
+              aria-label={t('Photo suivante')}
             >
               <ArrowRight />
             </button>
             <span className="carousel__count" aria-hidden="true">
-              {index + 1} / {count}
+              {index + 1} {t('/ ')}
+              {t(count)}
             </span>
           </>
         )}
@@ -173,11 +156,17 @@ export function VehicleCarousel({
               key={p.src}
               type="button"
               className="carousel__thumb"
-              aria-label={`Voir la photo ${i + 1}`}
+              aria-label={t(`Voir la photo ${i + 1}`)}
               aria-current={i === index ? 'true' : undefined}
               onClick={() => go(i)}
             >
-              <Image src={p.src} alt="" fill sizes="90px" style={{ objectFit: 'cover' }} />
+              <Image
+                src={p.src}
+                alt={t(p.alt)}
+                fill
+                sizes="90px"
+                style={{ objectFit: 'cover' }}
+              />
             </button>
           ))}
         </div>

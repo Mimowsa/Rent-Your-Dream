@@ -1,15 +1,21 @@
 'use client'
 
+import { useI18n } from '@/components/locale-provider'
+
 import { useCallback, useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
-import Link from 'next/link'
+import Link from '@/components/localized-link'
 import { usePathname } from 'next/navigation'
 import { mainNav, primaryCta } from '@/lib/nav'
 import { company } from '@/lib/company'
 import { Menu, Close } from '@/components/icons'
+import { SiteControls } from '@/components/site-controls'
 
 export function SiteHeader() {
+  const { t, locale } = useI18n()
+
   const pathname = usePathname()
+  const currentPath = pathname.replace(/^\/en(?=\/|$)/, '') || '/'
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
   const burgerRef = useRef<HTMLButtonElement>(null)
@@ -66,36 +72,40 @@ export function SiteHeader() {
   return (
     <header className="header" data-scrolled={scrolled ? 'true' : undefined}>
       <div className="wrap header-in">
-        <Link href="/" className="brand" aria-label={`${company.name} — accueil`}>
+        <Link
+          href="/"
+          className="brand"
+          aria-label={t(`${company.name} — accueil`)}
+        >
           <Image
             className="brand-mark"
             src="/brand/ryd-mark.png"
-            alt={company.name}
+            alt={t(company.name)}
             width={1099}
             height={352}
-            priority
           />
-          <Image
-            className="brand-full"
-            src="/brand/ryd-lockup.png"
-            alt=""
-            width={1804}
-            height={232}
-            aria-hidden
-          />
+          <span className="brand-name">
+            {t('Rent Your Dream')}
+            <small>{t('Location automobile')}</small>
+          </span>
         </Link>
 
-        <nav className="nav" aria-label="Navigation">
+        <nav className="nav" aria-label={t('Navigation')}>
           {mainNav.map((i) => (
-            <Link key={i.href} href={i.href}>
-              {i.label}
+            <Link
+              key={i.href}
+              href={i.href}
+              aria-current={currentPath === i.href ? 'page' : undefined}
+            >
+              {t(i.label)}
             </Link>
           ))}
           <Link href={primaryCta.href} className="btn btn--primary btn--sm">
-            {primaryCta.label}
+            {t(primaryCta.label)}
           </Link>
         </nav>
 
+        <SiteControls />
         <button
           type="button"
           className="burger"
@@ -104,7 +114,7 @@ export function SiteHeader() {
           aria-controls="drawer"
           onClick={() => setOpen(true)}
         >
-          <span className="sr-only">Ouvrir le menu</span>
+          <span className="sr-only">{t('Ouvrir le menu')}</span>
           <Menu />
         </button>
       </div>
@@ -114,54 +124,63 @@ export function SiteHeader() {
         className="drawer"
         ref={drawerRef}
         data-open={open ? 'true' : undefined}
+        role="dialog"
+        aria-modal={open ? true : undefined}
+        aria-label={t('Menu de navigation')}
+        inert={!open}
         aria-hidden={open ? undefined : true}
       >
         <div className="drawer-top">
           <Link
             href="/"
             className="brand"
-            aria-label={`${company.name} — accueil`}
+            aria-label={t(`${company.name} — accueil`)}
             onClick={close}
           >
             <Image
               src="/brand/ryd-mark.png"
-              alt={company.name}
+              alt={t(company.name)}
               width={1099}
               height={352}
               style={{ height: 26, width: 'auto' }}
             />
           </Link>
           <button type="button" className="burger" onClick={close}>
-            <span className="sr-only">Fermer</span>
+            <span className="sr-only">{t('Fermer')}</span>
             <Close />
           </button>
         </div>
-        <nav aria-label="Navigation mobile">
+        <nav aria-label={t('Navigation mobile')}>
           {mainNav.map((i) => (
             <Link key={i.href} href={i.href} onClick={close}>
-              {i.label}
+              {t(i.label)}
             </Link>
           ))}
         </nav>
-        <Link href={primaryCta.href} className="btn btn--primary btn--block" onClick={close}>
-          {primaryCta.label}
+        <Link
+          href={primaryCta.href}
+          className="btn btn--primary btn--block"
+          onClick={close}
+        >
+          {t(primaryCta.label)}
         </Link>
         <p className="drawer-foot">
-          {company.phone ? `WhatsApp · ${company.phone}` : company.email}
+          {t(company.phone ? `WhatsApp · ${company.phone}` : company.email)}
           <br />
-          Snapchat · {company.socials.snapchat.handle}
-          {company.socials.instagram.handle ? (
+          {t('Snapchat · ')}
+          {t(company.socials.snapchat.handle)}
+          {company.socials.instagram.handle && (
             <>
               <br />
               Instagram · {company.socials.instagram.handle}
             </>
-          ) : null}
-          {company.socials.tiktok.handle ? (
+          )}
+          {company.socials.tiktok.handle && (
             <>
               <br />
               TikTok · {company.socials.tiktok.handle}
             </>
-          ) : null}
+          )}
         </p>
       </div>
     </header>

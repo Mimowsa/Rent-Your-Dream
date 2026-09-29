@@ -1,0 +1,56 @@
+[
+  {
+    "input": "public/vehicles/megane-4/front-3q.jpg",
+    "output": "public/vehicles/megane-4/front-3q.webp",
+    "before": 1278379,
+    "after": 230556
+  },
+  {
+    "input": "public/vehicles/megane-4/front-low.jpg",
+    "output": "public/vehicles/megane-4/front-low.webp",
+    "before": 1097204,
+    "after": 173414
+  },
+  {
+    "input": "public/vehicles/megane-4/interior-carplay.jpg",
+    "output": "public/vehicles/megane-4/interior-carplay.webp",
+    "before": 960879,
+    "after": 82700
+  },
+  {
+    "input": "public/vehicles/megane-4/rear-3q.jpg",
+    "output": "public/vehicles/megane-4/rear-3q.webp",
+    "before": 1405899,
+    "after": 274608
+  },
+  {
+    "input": "public/vehicles/megane-4/vitrine.jpg",
+    "output": "public/vehicles/megane-4/vitrine.webp",
+    "before": 272751,
+    "after": 70980
+  },
+  {
+    "input": "public/vehicles/megane-4/wheel-detail.jpg",
+    "output": "public/vehicles/megane-4/wheel-detail.webp",
+    "before": 1808185,
+    "after": 231746
+  },
+  {
+    "input": "public/images/megane-hero.png",
+    "output": "public/images/megane-hero.webp",
+    "before": 2306004,
+    "after": 152812
+  },
+  {
+    "input": "public/images/megane-night.png",
+    "output": "public/images/megane-night.webp",
+    "before": 1733790,
+    "after": 68276
+  },
+  {
+    "input": "public/images/megane-studio.png",
+    "output": "public/images/megane-studio.webp",
+    "before": 2103406,
+    "after": 86086
+  }
+]

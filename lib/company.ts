@@ -19,11 +19,31 @@ export type SocialChannel = {
 
 export const company = {
   name: 'Rent Your Dream',
+  /** Public domain confirmed by the owner. Override only for a domain change. */
+  siteUrl: (
+    process.env.NEXT_PUBLIC_SITE_URL || 'https://rentyourdream.fr'
+  ).replace(/\/$/, ''),
   shortName: 'RYD',
   slogan: 'Un rêve éveillé',
   tagline: 'Louez. Roulez. Profitez.',
   description:
-    'Location automobile à Paris et en Île-de-France. Des tarifs clairs, une réservation simple, une confirmation directe sur WhatsApp.',
+    'Location de voiture à Paris et en Île-de-France, à la journée, au week-end ou à la semaine. Découvrez notre flotte et préparez votre demande de location.',
+
+  /** Verified against the Kbis issued on 18 September 2026. Not a pickup address. */
+  legal: {
+    name: 'RENT YOUR DREAM',
+    form: 'Société par actions simplifiée à associé unique (SASU)',
+    capital: 1000,
+    siren: '130 181 647',
+    rcs: '130 181 647 RCS Bobigny',
+    address: '19 Rue Charles Delescluze, 93170 Bagnolet, France',
+    streetAddress: '19 Rue Charles Delescluze',
+    postalCode: '93170',
+    city: 'Bagnolet',
+    country: 'FR',
+    publicationDirector: 'Ryan DJORDJEVIC',
+    registeredOn: '2026-09-18',
+  },
 
   area: 'Île-de-France',
   city: 'Paris',
@@ -35,8 +55,8 @@ export const company = {
 
   /**
    * WhatsApp business number in international format, digits only, no "+".
-   * When set, every "Réserver" CTA opens WhatsApp (wa.me) with the pre-filled
-   * message; when null it falls back to an e-mail.
+   * Rental requests open WhatsApp (wa.me) with a pre-filled message.
+   * When null, request links are unavailable; there is no e-mail fallback.
    */
   whatsappNumber: '33688433993' as string | null,
 
@@ -75,8 +95,14 @@ export const company = {
 
   legalRoutes: [
     { label: 'Mentions légales', href: '/mentions-legales' },
-    { label: 'Politique de confidentialité', href: '/politique-confidentialite' },
+    {
+      label: 'Politique de confidentialité',
+      href: '/politique-confidentialite',
+    },
+    { label: 'Politique des cookies', href: '/politique-cookies' },
+    { label: 'Conditions d’utilisation', href: '/conditions-generales' },
     { label: 'CGV / Conditions de location', href: '/conditions-location' },
+    { label: 'Annulation et remboursement', href: '/annulation-remboursement' },
   ],
 } as const
 

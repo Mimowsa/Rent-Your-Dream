@@ -1,48 +1,64 @@
 import type { Metadata, Viewport } from 'next'
-import { Manrope } from 'next/font/google'
+import localFont from 'next/font/local'
+import { headers } from 'next/headers'
 import './globals.css'
 import { SiteHeader } from '@/components/site-header'
 import { SiteFooter } from '@/components/site-footer'
 import { company } from '@/lib/company'
+import { businessJsonLd, jsonLd } from '@/lib/seo'
+import { LocaleProvider } from '@/components/locale-provider'
+import { BackToTop } from '@/components/back-to-top'
+import { AnalyticsConsent } from '@/components/analytics-consent'
 
-const manrope = Manrope({
-  subsets: ['latin'],
+const manrope = localFont({
+  src: '../public/fonts/Manrope-variable.ttf',
+  weight: '200 800',
   display: 'swap',
   variable: '--font-manrope',
 })
 
-const siteUrl = 'https://rentyourdream.fr'
-
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
+  metadataBase: new URL(company.siteUrl),
   title: {
-    default: `${company.name} — Location automobile à Paris`,
+    default: `Location de voiture à Paris et en Île-de-France · ${company.name}`,
     template: `%s · ${company.name}`,
   },
   description: company.description,
   applicationName: company.name,
-  alternates: { canonical: '/' },
-  keywords: [
-    'location voiture Paris',
-    'location automobile Île-de-France',
-    'louer une voiture Paris',
-    company.name,
-  ],
-  authors: [{ name: company.credit.name }],
+  authors: [{ name: company.name }],
+  creator: company.credit.name,
   openGraph: {
     type: 'website',
     locale: 'fr_FR',
     siteName: company.name,
-    title: `${company.name} — Un rêve éveillé`,
+    title: `Location de voiture à Paris · ${company.name}`,
     description: company.description,
-    url: siteUrl,
+    images: [
+      {
+        url: '/opengraph-image.jpg',
+        alt: 'Rent Your Dream — location de voiture à Paris et en Île-de-France',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: `${company.name} — Un rêve éveillé`,
+    title: `Location de voiture à Paris · ${company.name}`,
     description: company.description,
+    images: [
+      {
+        url: '/opengraph-image.jpg',
+        alt: 'Rent Your Dream — location de voiture à Paris et en Île-de-France',
+      },
+    ],
   },
-  robots: { index: true, follow: true },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, 'max-image-preview': 'large' },
+  },
+  verification: {
+    google: process.env.GOOGLE_SITE_VERIFICATION || undefined,
+  },
 }
 
 export const viewport: Viewport = {
@@ -51,16 +67,47 @@ export const viewport: Viewport = {
   initialScale: 1,
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  const locale = (await headers()).get('x-ryd-locale') === 'en' ? 'en' : 'fr'
   return (
-    <html lang="fr" data-scroll-behavior="smooth" className={manrope.variable}>
+    <html
+      lang={locale}
+      data-scroll-behavior="smooth"
+      className={manrope.variable}
+      suppressHydrationWarning
+    >
       <body>
-        <a href="#contenu" className="skip-link">
-          Aller au contenu
-        </a>
-        <SiteHeader />
-        <main id="contenu">{children}</main>
-        <SiteFooter />
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "try{var theme=localStorage.getItem('ryd-theme');document.documentElement.dataset.theme=theme==='dark'||(!theme&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch{}",
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: jsonLd(businessJsonLd()) }}
+        />
+        <LocaleProvider locale={locale}>
+          <a href="#contenu" className="skip-link">
+            {locale === 'fr' ? 'Aller au contenu' : 'Skip to content'}
+          </a>
+          <SiteHeader />
+          <main id="contenu" tabIndex={-1}>
+            {children}
+          </main>
+          <SiteFooter />
+          <BackToTop />
+          <AnalyticsConsent
+            enabled={
+              process.env.VERCEL_ENV === 'production' ||
+              process.env.NEXT_PUBLIC_ENABLE_ANALYTICS === '1'
+            }
+          />
+        </LocaleProvider>
       </body>
     </html>
   )

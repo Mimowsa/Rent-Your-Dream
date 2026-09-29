@@ -1,0 +1,164 @@
+{
+  "date": "2026-09-29T12:55:29.374Z",
+  "environment": "Production build served on localhost. Chrome, mobile 390px, cold browser cache, CPU x4, 150ms latency, download 1.6Mbps, upload 750Kbps. Three samples per page; median. Not a production-host measurement or Lighthouse score.",
+  "summary": [
+    {
+      "path": "/",
+      "ttfbMs": 12,
+      "fcpMs": 716,
+      "lcpMs": 716,
+      "cls": 0,
+      "transferredBytes": 306677,
+      "requests": 17
+    },
+    {
+      "path": "/en",
+      "ttfbMs": 12,
+      "fcpMs": 724,
+      "lcpMs": 724,
+      "cls": 0.0042,
+      "transferredBytes": 308321,
+      "requests": 18
+    },
+    {
+      "path": "/reservation",
+      "ttfbMs": 8,
+      "fcpMs": 700,
+      "lcpMs": 700,
+      "cls": 0.0006,
+      "transferredBytes": 310812,
+      "requests": 19
+    },
+    {
+      "path": "/vehicules/megane-4",
+      "ttfbMs": 12,
+      "fcpMs": 704,
+      "lcpMs": 1424,
+      "cls": 0.0001,
+      "transferredBytes": 318241,
+      "requests": 27
+    }
+  ],
+  "samples": [
+    {
+      "path": "/",
+      "sample": 1,
+      "ttfbMs": 30,
+      "fcpMs": 752,
+      "lcpMs": 752,
+      "cls": 0,
+      "transferredBytes": 306677,
+      "requests": 17
+    },
+    {
+      "path": "/",
+      "sample": 2,
+      "ttfbMs": 10,
+      "fcpMs": 716,
+      "lcpMs": 716,
+      "cls": 0,
+      "transferredBytes": 306677,
+      "requests": 17
+    },
+    {
+      "path": "/",
+      "sample": 3,
+      "ttfbMs": 12,
+      "fcpMs": 712,
+      "lcpMs": 712,
+      "cls": 0,
+      "transferredBytes": 306676,
+      "requests": 17
+    },
+    {
+      "path": "/en",
+      "sample": 1,
+      "ttfbMs": 11,
+      "fcpMs": 728,
+      "lcpMs": 728,
+      "cls": 0.0042,
+      "transferredBytes": 308322,
+      "requests": 18
+    },
+    {
+      "path": "/en",
+      "sample": 2,
+      "ttfbMs": 12,
+      "fcpMs": 720,
+      "lcpMs": 720,
+      "cls": 0.0042,
+      "transferredBytes": 308321,
+      "requests": 18
+    },
+    {
+      "path": "/en",
+      "sample": 3,
+      "ttfbMs": 13,
+      "fcpMs": 724,
+      "lcpMs": 724,
+      "cls": 0.0042,
+      "transferredBytes": 308321,
+      "requests": 18
+    },
+    {
+      "path": "/reservation",
+      "sample": 1,
+      "ttfbMs": 7,
+      "fcpMs": 696,
+      "lcpMs": 696,
+      "cls": 0.0006,
+      "transferredBytes": 310814,
+      "requests": 19
+    },
+    {
+      "path": "/reservation",
+      "sample": 2,
+      "ttfbMs": 10,
+      "fcpMs": 700,
+      "lcpMs": 700,
+      "cls": 0.0006,
+      "transferredBytes": 310812,
+      "requests": 19
+    },
+    {
+      "path": "/reservation",
+      "sample": 3,
+      "ttfbMs": 8,
+      "fcpMs": 708,
+      "lcpMs": 708,
+      "cls": 0.0006,
+      "transferredBytes": 310810,
+      "requests": 19
+    },
+    {
+      "path": "/vehicules/megane-4",
+      "sample": 1,
+      "ttfbMs": 12,
+      "fcpMs": 704,
+      "lcpMs": 1852,
+      "cls": 0.0001,
+      "transferredBytes": 318241,
+      "requests": 27
+    },
+    {
+      "path": "/vehicules/megane-4",
+      "sample": 2,
+      "ttfbMs": 9,
+      "fcpMs": 696,
+      "lcpMs": 1424,
+      "cls": 0.0001,
+      "transferredBytes": 318240,
+      "requests": 27
+    },
+    {
+      "path": "/vehicules/megane-4",
+      "sample": 3,
+      "ttfbMs": 12,
+      "fcpMs": 724,
+      "lcpMs": 1420,
+      "cls": 0.0001,
+      "transferredBytes": 318241,
+      "requests": 27
+    }
+  ]
+}

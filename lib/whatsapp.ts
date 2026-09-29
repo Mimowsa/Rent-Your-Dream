@@ -1,5 +1,6 @@
 import { company } from './company'
 import type { Vehicle } from './vehicles'
+import { translate, type Locale } from './i18n'
 
 /**
  * Turns the configurator selection into a clean, human-readable message and the
@@ -10,7 +11,6 @@ import type { Vehicle } from './vehicles'
 export type BookingSelection = {
   vehicleName: string
   firstName: string
-  lastName: string
   startDate: string // yyyy-mm-dd
   startTime: string // hh:mm
   endDate: string
@@ -26,11 +26,11 @@ export type BookingSelection = {
   note: string
 }
 
-function formatDate(value: string): string | null {
+function formatDate(value: string, locale: Locale): string | null {
   if (!value) return null
   const d = new Date(`${value}T00:00:00`)
   if (Number.isNaN(d.getTime())) return null
-  return d.toLocaleDateString('fr-FR', {
+  return d.toLocaleDateString(locale === 'en' ? 'en-GB' : 'fr-FR', {
     weekday: 'long',
     day: 'numeric',
     month: 'long',
@@ -38,23 +38,69 @@ function formatDate(value: string): string | null {
   })
 }
 
-export function buildWhatsappMessage(sel: BookingSelection, vehicle?: Vehicle): string {
+export function buildWhatsappMessage(
+  sel: BookingSelection,
+  vehicle?: Vehicle,
+  locale: Locale = 'fr',
+): string {
+  if (locale === 'en') {
+    const lines = [
+      `Hello ${company.name},`,
+      '',
+      `${sel.firstName.trim() ? `My name is ${sel.firstName.trim()} and I` : 'I'} would like a rental quote for the ${sel.vehicleName}.`,
+      '',
+    ]
+    const start = formatDate(sel.startDate, locale)
+    const end = formatDate(sel.endDate, locale)
+    if (start)
+      lines.push(
+        `Pick-up: ${start}${sel.startTime ? ` at ${sel.startTime}` : ''}`,
+      )
+    if (end)
+      lines.push(`Return: ${end}${sel.endTime ? ` at ${sel.endTime}` : ''}`)
+    lines.push(
+      `Mileage: included allowance${vehicle ? ` (${vehicle.includedKmPerDay} km / day)` : ''}`,
+    )
+    if (sel.extraKmWanted)
+      lines.push(
+        `Additional mileage requested: ${sel.extraKm > 0 ? `about ${sel.extraKm} km` : 'yes, amount to be confirmed'}`,
+      )
+    lines.push(
+      sel.delivery
+        ? `Delivery requested: ${sel.deliveryCity.trim() || 'city to be confirmed'}`
+        : `Pick-up in ${company.area}`,
+    )
+    if (sel.note.trim()) lines.push('', `Note: ${sel.note.trim()}`)
+    if (vehicle)
+      lines.push(
+        '',
+        `Reference rates, including taxes: ${vehicle.pricing.day} EUR / 24 hours; ${vehicle.pricing.weekend} EUR / weekend (${vehicle.pricing.weekendHours} hours); ${vehicle.pricing.week} EUR / 7 days.`,
+        `Security deposit: ${vehicle.deposit} EUR; ${translate(vehicle.depositMeans, locale)}.`,
+      )
+    lines.push(
+      '',
+      'Please confirm availability, the total price, any extras and the rental terms. This is a non-binding request.',
+    )
+    return lines.join('\n')
+  }
   const lines: string[] = []
   lines.push(`Bonjour ${company.name},`)
   lines.push('')
 
-  const who = [sel.firstName, sel.lastName].filter(Boolean).join(' ').trim()
+  const who = sel.firstName.trim()
   lines.push(
     who
-      ? `Je suis ${who} et je souhaite louer la ${sel.vehicleName}.`
-      : `Je souhaite louer la ${sel.vehicleName}.`,
+      ? `Je suis ${who} et je souhaite une proposition de location pour la ${sel.vehicleName}.`
+      : `Je souhaite une proposition de location pour la ${sel.vehicleName}.`,
   )
   lines.push('')
 
-  const start = formatDate(sel.startDate)
-  const end = formatDate(sel.endDate)
-  if (start) lines.push(`Départ : ${start}${sel.startTime ? ` à ${sel.startTime}` : ''}`)
-  if (end) lines.push(`Retour : ${end}${sel.endTime ? ` à ${sel.endTime}` : ''}`)
+  const start = formatDate(sel.startDate, locale)
+  const end = formatDate(sel.endDate, locale)
+  if (start)
+    lines.push(`Départ : ${start}${sel.startTime ? ` à ${sel.startTime}` : ''}`)
+  if (end)
+    lines.push(`Retour : ${end}${sel.endTime ? ` à ${sel.endTime}` : ''}`)
 
   lines.push(
     `Kilométrage : forfait inclus${
@@ -82,7 +128,9 @@ export function buildWhatsappMessage(sel: BookingSelection, vehicle?: Vehicle): 
   }
 
   lines.push('')
-  lines.push('Pouvez-vous me confirmer la disponibilité ? Merci.')
+  lines.push(
+    'Pouvez-vous me confirmer la disponibilité, le prix total et les conditions de location ? Merci.',
+  )
 
   return lines.join('\n')
 }
@@ -90,18 +138,13 @@ export function buildWhatsappMessage(sel: BookingSelection, vehicle?: Vehicle): 
 /**
  * The link that opens the pre-filled conversation.
  * - WhatsApp number known  → https://wa.me/<number>?text=...
- * - number not known yet   → mailto: fallback with the same body
+ * - number not configured → no rental request link
  */
-export function contactLink(message: string): { href: string; channel: 'whatsapp' | 'email' } {
-  const encoded = encodeURIComponent(message)
-  if (company.whatsappNumber) {
-    return { href: `https://wa.me/${company.whatsappNumber}?text=${encoded}`, channel: 'whatsapp' }
-  }
-  const subject = encodeURIComponent(`Demande de location — ${company.name}`)
-  return { href: `mailto:${company.email}?subject=${subject}&body=${encoded}`, channel: 'email' }
+export function bookingWhatsappLink(message: string): string | null {
+  return company.whatsappNumber
+    ? `https://wa.me/${company.whatsappNumber}?text=${encodeURIComponent(message)}`
+    : null
 }
-
-export const whatsappReady = company.whatsappNumber !== null
 
 /**
  * Plain "open a chat" link (no pre-filled message) for the generic
@@ -115,8 +158,6 @@ export const contactChatLink = company.whatsappNumber
  * "I want to book" quick link for the hero CTA — opens WhatsApp with a
  * short generic message (no dates yet, that's what the configurator is for).
  */
-export const bookingIntentLink = company.whatsappNumber
-  ? `https://wa.me/${company.whatsappNumber}?text=${encodeURIComponent(
-      'Bonjour, je souhaite obtenir des informations pour réserver un véhicule.',
-    )}`
-  : `mailto:${company.email}`
+export const bookingIntentLink = bookingWhatsappLink(
+  'Bonjour, je souhaite obtenir des informations pour réserver un véhicule.',
+)
