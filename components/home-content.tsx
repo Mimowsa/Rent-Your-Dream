@@ -178,16 +178,21 @@ export default function HomeContent() {
           </h2>
         </div>
         <div>
-          <p>
+          <p className="local-section__long-copy">
             {t('Basée à Bagnolet, ')}
             {t(company.name)}{' '}
             {t(
               'vous accompagne pour votre location de voiture à Paris et en Île-de-France. Découvrez notre flotte pour vos déplacements du quotidien, vos week-ends et vos envies d’ailleurs. Chaque véhicule possède ses équipements et ses propres forfaits.',
             )}
           </p>
-          <p>
+          <p className="local-section__long-copy">
             {t(
               'Besoin d’une livraison ailleurs en France ? Indiquez simplement la ville dans votre demande. Nous vous précisons les possibilités et les frais avant toute confirmation.',
+            )}
+          </p>
+          <p className="local-section__short-copy">
+            {t(
+              'Location à Paris et en Île-de-France. Livraison ailleurs en France sur demande et sur devis.',
             )}
           </p>
           <Link href="/contact" className="tlink">

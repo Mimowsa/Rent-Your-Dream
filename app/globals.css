@@ -726,6 +726,9 @@ p {
   font-size: 0.94rem;
   margin-bottom: 15px;
 }
+.local-section__short-copy {
+  display: none;
+}
 .faq-section {
   background: var(--paper);
   border-block: 1px solid #e6eaf0;
@@ -2639,7 +2642,23 @@ body:has(.sticky-cta[data-show='true']) .back-to-top {
 }
 @media (max-width: 760px) {
   .home-sections {
-    --home-section-gap: 32px;
-    --home-panel-padding: 24px;
+    --home-section-gap: 42px;
+    --home-panel-padding: 32px;
+  }
+  .home-sections .fleet-section .editorial-heading > p,
+  .home-sections .quick-booking-heading > p,
+  .home-sections .journey-grid p,
+  .home-sections .sb-sub,
+  .home-sections .local-section__long-copy {
+    display: none;
+  }
+  .home-sections .local-section__short-copy {
+    display: block;
+  }
+  .home-sections .editorial-heading {
+    margin-bottom: 32px;
+  }
+  .home-sections .local-section {
+    gap: 32px;
   }
 }
