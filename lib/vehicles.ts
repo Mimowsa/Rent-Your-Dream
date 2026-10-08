@@ -55,6 +55,8 @@ export type Vehicle = {
 
   /** First photo is the primary / hero image. */
   photos: VehiclePhoto[]
+  /** Dedicated large image for the compact configurator. */
+  showcasePhoto?: VehiclePhoto
 
   availabilityNote: string
   available: boolean
@@ -65,6 +67,10 @@ const meganeAlt = 'Renault Mégane 4 noire de Rent Your Dream'
 export const vehicles: Vehicle[] = [
   {
     id: 'megane-4',
+    showcasePhoto: {
+      src: '/vehicles/megane-4/source-vitrine.webp',
+      alt: 'Renault Mégane 4 noire, photo vitrine Rent Your Dream',
+    },
     slug: 'megane-4',
     brand: 'Renault',
     model: 'Mégane 4',
@@ -87,36 +93,36 @@ export const vehicles: Vehicle[] = [
     depositMeans: 'Virement',
     minimumAge: 20,
     minimumLicenseYears: 1,
-    insuranceIncluded: null,
+    insuranceIncluded: true,
     depositReturn: 'same-day',
     photos: [
       {
-        src: '/vehicles/megane-4/vitrine.webp',
+        src: '/vehicles/megane-4/source-vitrine.webp',
         alt: `${meganeAlt}, vue avant trois-quarts sur fond studio`,
         caption: 'Renault Mégane 4',
       },
       {
-        src: '/vehicles/megane-4/front-3q.webp',
+        src: '/vehicles/megane-4/source-front-3q.webp',
         alt: `${meganeAlt}, vue avant trois-quarts`,
         caption: 'Vue avant trois-quarts',
       },
       {
-        src: '/vehicles/megane-4/rear-3q.webp',
+        src: '/vehicles/megane-4/source-rear-3q.webp',
         alt: `${meganeAlt}, vue arrière trois-quarts`,
         caption: 'Vue arrière',
       },
       {
-        src: '/vehicles/megane-4/front-low.webp',
+        src: '/vehicles/megane-4/source-front-low.webp',
         alt: `${meganeAlt}, vue avant en contre-plongée`,
         caption: 'Face avant',
       },
       {
-        src: '/vehicles/megane-4/interior-carplay.webp',
+        src: '/vehicles/megane-4/source-interior-carplay.webp',
         alt: 'Habitacle de la Mégane 4 avec écran Apple CarPlay et boîte automatique',
         caption: 'Apple CarPlay · boîte automatique',
       },
       {
-        src: '/vehicles/megane-4/wheel-detail.webp',
+        src: '/vehicles/megane-4/source-wheel-detail.webp',
         alt: 'Détail de la jante et de la carrosserie de la Mégane 4',
         caption: 'Finition et jantes alliage',
       },

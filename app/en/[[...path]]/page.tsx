@@ -273,7 +273,7 @@ export default async function EnglishPage({ params, searchParams }: Props) {
               </div>
             </div>
             <p className="dim">
-              Prices include tax. Insurance requires confirmation.
+              Prices include tax. Insurance included.
             </p>
             <ul className="facts">
               <li>

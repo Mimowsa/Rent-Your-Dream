@@ -34,26 +34,28 @@ try {
   const page = await browser.newPage({
     viewport: { width: 390, height: 844 },
     reducedMotion: 'reduce',
+    colorScheme: 'dark',
   })
   page.on('pageerror', (error) => errors.push(error.message))
+  await page.addInitScript(() => localStorage.setItem('ryd-theme', 'dark'))
   await page.goto(base, { waitUntil: 'networkidle' })
   assert.equal(
     await page.getByLabel('Date de départ', { exact: true }).isVisible(),
     true,
   )
-  await page.getByRole('button', { name: 'Mode sombre', exact: true }).click()
-  assert.equal(await page.locator('html').getAttribute('data-theme'), 'dark')
+  assert.equal(await page.getByRole('button', { name: 'Mode sombre', exact: true }).count(), 0)
+  assert.equal(await page.locator('html').getAttribute('data-theme'), 'light')
   await page.getByRole('link', { name: 'Switch to English' }).click()
   await page.waitForURL(`${base}/en`)
   assert.equal(await page.locator('html').getAttribute('lang'), 'en')
-  assert.equal(await page.locator('html').getAttribute('data-theme'), 'dark')
+  assert.equal(await page.locator('html').getAttribute('data-theme'), 'light')
   assert.match(await page.locator('h1').innerText(), /Your journey/)
   await page.getByRole('link', { name: /Prepare on WhatsApp/ }).waitFor()
   assert.equal(
     await page.getByRole('link', { name: /Prepare on WhatsApp/ }).count(),
     1,
   )
-  await page.getByRole('button', { name: 'Dark mode', exact: true }).click()
+  assert.equal(await page.getByRole('button', { name: 'Dark mode', exact: true }).count(), 0)
   await page.getByRole('link', { name: 'Passer en français' }).click()
   await page.waitForURL(base + '/')
   assert.equal(await page.locator('html').getAttribute('lang'), 'fr')
@@ -186,7 +188,7 @@ try {
     JSON.stringify({ checked: [...targets], broken }, null, 2),
   )
   console.log(
-    `PASS: languages, persisted theme, English WhatsApp request, spam trap and cooldown, consent choices, back to top, 24 routes, ${targets.size} internal links, 404 and English without JavaScript`,
+    `PASS: languages, light-only appearance, English WhatsApp request, spam trap and cooldown, consent choices, back to top, 24 routes, ${targets.size} internal links, 404 and English without JavaScript`,
   )
 } finally {
   await browser.close()

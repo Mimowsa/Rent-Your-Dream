@@ -9,9 +9,14 @@ import { euros, vehicles } from '@/lib/vehicles'
 
 function ComingVehicle() {
   return (
-    <span className="coming-plus" aria-hidden="true">
-      +
-    </span>
+    <Image
+      className="coming-vehicle-photo"
+      src="/vehicles/coming-soon-covered-cutout.webp"
+      alt=""
+      width={768}
+      height={512}
+      sizes="(max-width: 760px) 33vw, (max-width: 1100px) 50vw, 25vw"
+    />
   )
 }
 

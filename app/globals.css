@@ -3305,3 +3305,386 @@ body:has(.sticky-cta[data-show='true']) .back-to-top {
 [data-theme="dark"] .sb-arrow {
   color: #7395ff;
 }
+
+/* Open up the home page: full-width bands and restrained corners. */
+:root {
+  --radius: 10px;
+}
+.home-sections {
+  max-width: none;
+  padding: 0 0 48px;
+  gap: 48px;
+}
+.home-sections > * {
+  width: calc(100% - 64px);
+  max-width: 1296px;
+  margin-inline: auto;
+}
+.home-sections > .hero {
+  width: 100%;
+  max-width: none;
+  border-radius: 0;
+  min-height: 540px;
+  padding: 64px max(32px, calc((100% - 1200px) / 2));
+}
+.home-sections > .trust-strip {
+  border-radius: 0;
+  border-width: 0 0 1px;
+  padding-inline: 0;
+  box-shadow: none;
+}
+.home-sections > .quick-booking,
+.home-sections > .faq-section {
+  border-radius: 10px;
+  box-shadow: none;
+}
+.home-sections > .local-section {
+  width: 100%;
+  max-width: none;
+  border-radius: 0;
+  border: 0;
+  box-shadow: none;
+  background: var(--soft);
+  padding: 64px max(32px, calc((100% - 1200px) / 2));
+}
+.fleet-tile,
+.sb-card,
+.sb-pill {
+  border-radius: 10px;
+}
+.btn,
+.faq details,
+.sb-badge {
+  border-radius: 6px;
+}
+.footer {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 64px 0 24px;
+  border-radius: 0;
+}
+.footer > .wrap {
+  max-width: 1264px;
+  margin-inline: auto;
+  padding-inline: 32px;
+}
+.footer-base {
+  border-top: 1px solid #ffffff20;
+}
+@media (max-width: 760px) {
+  .home-sections {
+    padding: 0 0 32px;
+    gap: 32px;
+    --home-section-gap: 32px;
+  }
+  .home-sections > * {
+    width: calc(100% - 36px);
+  }
+  .home-sections > .hero {
+    width: 100%;
+    min-height: 470px;
+    padding: 36px 24px;
+  }
+  .home-sections > .local-section {
+    width: 100%;
+    padding: 40px 24px;
+  }
+  .home-sections > .trust-strip {
+    padding: 20px 0;
+  }
+  .footer {
+    width: 100%;
+    margin: 0;
+    border-radius: 0;
+    padding-top: 40px;
+  }
+  .footer > .wrap {
+    padding-inline: 24px;
+  }
+}
+
+/* Light-only surfaces, with subtle RYD blue and red accents. */
+.home-sections > .quick-booking {
+  background: linear-gradient(115deg, #edf3ff 0%, #f6f8fc 62%, #fff0f2 100%);
+  border-color: #dce5f4;
+}
+.compact-car {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 14px;
+}
+.compact-car img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: contain;
+  border-radius: 6px;
+}
+.compact-car > div {
+  width: 100%;
+}
+.compact-booking input,
+.compact-booking select {
+  background-color: #fff;
+}
+.home-sections > .local-section {
+  background: radial-gradient(ellipse at 8% 30%, #dce7ff 0%, transparent 55%),
+    radial-gradient(ellipse at 100% 100%, #ffe5e9 0%, transparent 50%), #f2f5fa;
+}
+
+/* A horizontal configurator: photo, model, dates, options, request. */
+.compact-grid {
+  grid-template-columns: 0.85fr 1fr 1.3fr 1.2fr 1.15fr;
+  gap: 20px;
+  align-items: center;
+}
+.compact-photo {
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: #111317;
+  border-radius: 6px;
+  min-height: 185px;
+}
+.compact-photo img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+.compact-grid > .compact-vehicle {
+  border-left: 0;
+  padding-left: 0;
+}
+.compact-car {
+  display: block;
+}
+.compact-car select {
+  padding: 10px 8px;
+}
+.compact-date-row {
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+}
+.compact-date-row input {
+  min-width: 0;
+  padding-inline: 6px;
+}
+@media (min-width: 761px) and (max-width: 1100px) {
+  .compact-grid {
+    grid-template-columns: 0.8fr 1.2fr 1.5fr;
+  }
+  .compact-options {
+    grid-column: 2;
+  }
+}
+@media (max-width: 760px) {
+  .compact-grid {
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    gap: 20px 16px;
+  }
+  .compact-photo {
+    min-height: 145px;
+  }
+  .compact-grid > .compact-vehicle {
+    border: 0;
+    padding: 0;
+  }
+  .compact-grid > .compact-dates,
+  .compact-grid > .compact-options,
+  .compact-grid > .compact-action {
+    grid-column: 1 / -1;
+    border-left: 0;
+    border-top: 1px solid #dce5f4;
+    padding: 18px 0 0;
+  }
+  .compact-car select {
+    font-size: 0.74rem;
+  }
+}
+
+.hero .road-artwork--routes {
+  width: 65%;
+  height: 115%;
+  right: -4%;
+  bottom: -10%;
+  opacity: 0.85;
+  mask-image: linear-gradient(to right, transparent, #000 22%);
+}
+@media (max-width: 760px) {
+  .hero .road-artwork--routes {
+    width: 115%;
+    height: 105%;
+    right: -36%;
+    bottom: -22%;
+    opacity: 0.38;
+  }
+}
+
+/* Three centered reassurance cards. */
+.home-sections > .trust-strip {
+  gap: 18px;
+  padding: 0;
+  border: 0;
+  box-shadow: none;
+}
+.home-sections .trust-strip p {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 26px 20px;
+  text-align: center;
+  background: #f6f8fc;
+  border: 1px solid #e2e8f2;
+  border-radius: 8px;
+}
+.home-sections .trust-strip span {
+  gap: 5px;
+}
+.home-sections .trust-strip strong {
+  justify-content: center;
+  min-height: 0;
+}
+@media (max-width: 600px) {
+  .home-sections > .trust-strip {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .home-sections .trust-strip p {
+    padding: 22px 18px;
+  }
+  .home-sections .trust-strip .trust-strip__full {
+    display: grid;
+  }
+  .home-sections .trust-strip .trust-strip__compact {
+    display: none;
+  }
+}
+
+/* Compact reassurance cards, including a single row on phones. */
+.home-sections > .trust-strip {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+.home-sections .trust-strip p {
+  gap: 7px;
+  padding: 14px 12px;
+  font-size: 0.72rem;
+}
+.home-sections .trust-strip svg {
+  width: 26px;
+  height: 26px;
+  padding: 6px;
+}
+.home-sections .trust-strip span {
+  gap: 3px;
+}
+.home-sections .trust-strip strong {
+  font-size: 0.77rem;
+}
+@media (max-width: 600px) {
+  .home-sections > .trust-strip {
+    gap: 7px;
+  }
+  .home-sections .trust-strip p {
+    padding: 12px 6px;
+    gap: 6px;
+    font-size: 0.64rem;
+    line-height: 1.4;
+  }
+  .home-sections .trust-strip strong {
+    font-size: 0.68rem;
+    min-height: 2.8em;
+  }
+  .home-sections .trust-strip .trust-strip__full {
+    display: none;
+  }
+  .home-sections .trust-strip .trust-strip__compact {
+    display: grid;
+  }
+  .home-sections .trust-strip svg {
+    width: 22px;
+    height: 22px;
+    padding: 5px;
+  }
+}
+
+/* Keep reassurance cards close to the hero. */
+.home-sections > .hero + .trust-strip {
+  margin-top: -28px;
+}
+@media (max-width: 760px) {
+  .home-sections > .hero + .trust-strip {
+    margin-top: -16px;
+  }
+}
+
+/* A covered car previews the upcoming additions to the fleet. */
+.fleet-tile--coming {
+  background: #f5f6f8;
+  padding-inline: 12px;
+}
+.fleet-tile__placeholder {
+  width: 100%;
+}
+.coming-vehicle-photo {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 2;
+  object-fit: contain;
+  margin: 18px auto;
+  mix-blend-mode: normal;
+}
+@media (max-width: 760px) {
+  .fleet-tile--coming {
+    padding-inline: 6px;
+  }
+  .coming-vehicle-photo {
+    margin: 14px auto 10px;
+  }
+}
+
+/* Social cards: icon beside the account details, without arrows. */
+.sb-card {
+  grid-template-columns: 1fr 2fr;
+}
+.sb-copy h2,
+.sb-copy h2 span {
+  color: #fff;
+}
+.sb-pill {
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 12px;
+  padding: 22px 16px;
+  text-align: left;
+  background: #141414;
+}
+.sb-badge {
+  flex: none;
+  width: 46px;
+  height: 46px;
+}
+.sb-pill:last-child .sb-badge {
+  background: #fff !important;
+}
+.sb-meta {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+@media (max-width: 1100px) {
+  .sb-card {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+}
+@media (max-width: 760px) {
+  .sb-links {
+    grid-template-columns: 1fr;
+  }
+  .sb-pill {
+    padding: 16px;
+  }
+}

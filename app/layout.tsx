@@ -76,17 +76,13 @@ export default async function RootLayout({
   return (
     <html
       lang={locale}
+      data-theme="light"
       data-scroll-behavior="smooth"
       className={manrope.variable}
       suppressHydrationWarning
     >
       <body>
-        <script
-          dangerouslySetInnerHTML={{
-            __html:
-              "try{var theme=localStorage.getItem('ryd-theme');document.documentElement.dataset.theme=theme==='dark'||(!theme&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}catch{}",
-          }}
-        />
+
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: jsonLd(businessJsonLd()) }}

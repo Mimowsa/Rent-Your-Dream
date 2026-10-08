@@ -135,7 +135,7 @@ export default async function VehicleDetail({
             </div>
           </div>
 
-          <p className="dim">Prix TTC · Assurance à confirmer</p>
+          <p className="dim">Prix TTC · Assurance comprise</p>
           <ul className="facts">
             <li>
               <Check /> Dès {v.minimumAge} ans et {v.minimumLicenseYears} an de

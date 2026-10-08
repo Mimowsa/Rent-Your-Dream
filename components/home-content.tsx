@@ -52,7 +52,7 @@ export default function HomeContent() {
             </Link>
           </div>
         </div>
-        <RoadArtwork />
+        <RoadArtwork roads />
       </section>
 
       <div className="trust-strip wrap">

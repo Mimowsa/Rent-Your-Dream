@@ -254,15 +254,19 @@ export function ConfiguratorBand({
           />
         </div>
         <div className="compact-grid">
+          <div className="compact-photo">
+              <Image
+                src={(vehicle.showcasePhoto ?? vehicle.photos[0]).src}
+                alt={t((vehicle.showcasePhoto ?? vehicle.photos[0]).alt)}
+                width={480}
+                height={360}
+                sizes="(max-width: 760px) 140px, 200px"
+              />
+          </div>
           <div className="compact-vehicle">
             <label htmlFor={`${uid}-vehicle`}>{t('Votre véhicule')}</label>
             <div className="compact-car">
-              <Image
-                src={vehicle.photos[0].src}
-                alt={t(vehicle.photos[0].alt)}
-                width={90}
-                height={68}
-              />
+
               <div>
                 <select
                   id={`${uid}-vehicle`}
@@ -578,7 +582,7 @@ export function ConfiguratorBand({
           </dl>
           <p className="field-hint">
             {t(
-              'Prix TTC. Assurance et franchises à confirmer avant réservation.',
+              'Prix TTC. Assurance comprise.',
             )}
           </p>
           <div className="booking-included">
