@@ -3688,3 +3688,34 @@ body:has(.sticky-cta[data-show='true']) .back-to-top {
     padding: 16px;
   }
 }
+
+/* Safari's native date/time controls must stay within their grid cells. */
+.compact-date-row > input[type='date'],
+.compact-date-row > input[type='time'] {
+  -webkit-appearance: none;
+  appearance: none;
+  display: block;
+  box-sizing: border-box;
+  min-width: 0;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+}
+.compact-date-row input::-webkit-date-and-time-value {
+  min-width: 0;
+  text-align: left;
+}
+.compact-date-row input::-webkit-datetime-edit {
+  min-width: 0;
+  padding: 0;
+}
+@media (max-width: 760px) {
+  .compact-date-row {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 110px);
+    gap: 12px;
+  }
+  .compact-date-row > input {
+    font-size: 16px;
+    min-height: 46px;
+  }
+}
