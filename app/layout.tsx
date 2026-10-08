@@ -36,6 +36,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: '/opengraph-image.jpg',
+        width: 1200,
+        height: 630,
         alt: 'Rent Your Dream — location de voiture à Paris et en Île-de-France',
       },
     ],

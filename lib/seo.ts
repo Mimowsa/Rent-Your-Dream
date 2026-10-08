@@ -41,7 +41,7 @@ export function pageMetadata({
       title: `${title} · ${company.name}`,
       description,
       url: absoluteUrl(canonical),
-      images: [{ url: absoluteUrl(image), alt: imageAlt }],
+      images: [{ url: absoluteUrl(image), alt: imageAlt, ...(image === '/opengraph-image.jpg' ? { width: 1200, height: 630 } : {}) }],
     },
     twitter: {
       card: 'summary_large_image',
