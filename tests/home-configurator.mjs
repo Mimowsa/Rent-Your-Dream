@@ -67,7 +67,7 @@ try {
     await link.getAttribute('href'),
   ).searchParams.get('text')
   assert.doesNotMatch(cleanMessage, /Lyon|300 km/)
-  assert.equal(await page.locator('#faq details').count(), 11)
+  assert.equal(await page.locator('#faq details').count(), 8)
   assert.equal(
     await page
       .locator('.footer nav[aria-label="Informations légales"] a')
@@ -96,7 +96,7 @@ try {
   }
   assert.deepEqual(errors, [])
   console.log(
-    'PASS: compact form validates dates, delivery and mileage; WhatsApp message removes deselected options; 11 FAQ and 6 legal links retained; form above fleet; no overflow at four widths.',
+    'PASS: compact form validates dates, delivery and mileage; WhatsApp message removes deselected options; 8 FAQ and 6 legal links retained; form above fleet; no overflow at four widths.',
   )
 } finally {
   await browser.close()
