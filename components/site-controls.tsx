@@ -14,7 +14,7 @@ export function SiteControls() {
     [],
   )
   function toggleTheme() {
-    const next = !dark
+    const next = document.documentElement.dataset.theme !== 'dark'
     setDark(next)
     document.documentElement.dataset.theme = next ? 'dark' : 'light'
     try {

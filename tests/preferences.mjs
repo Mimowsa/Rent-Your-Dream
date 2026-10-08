@@ -47,9 +47,10 @@ try {
   await page.waitForURL(`${base}/en`)
   assert.equal(await page.locator('html').getAttribute('lang'), 'en')
   assert.equal(await page.locator('html').getAttribute('data-theme'), 'dark')
-  assert.match(await page.locator('h1').innerText(), /Car rental/)
+  assert.match(await page.locator('h1').innerText(), /Your journey/)
+  await page.getByRole('link', { name: /Prepare on WhatsApp/ }).waitFor()
   assert.equal(
-    await page.getByRole('button', { name: 'Choose my options' }).count(),
+    await page.getByRole('link', { name: /Prepare on WhatsApp/ }).count(),
     1,
   )
   await page.getByRole('button', { name: 'Dark mode', exact: true }).click()
@@ -173,7 +174,7 @@ try {
   const plain = await browser.newContext({ javaScriptEnabled: false })
   const plainPage = await plain.newPage()
   await plainPage.goto(base + '/en', { waitUntil: 'load' })
-  assert.match(await plainPage.locator('h1').innerText(), /Car rental/)
+  assert.match(await plainPage.locator('h1').innerText(), /Your journey/)
   await plainPage.goto(base + '/en/reservation', { waitUntil: 'load' })
   assert.ok(
     await plainPage.locator('noscript a[href^="https://wa.me/"]').count(),

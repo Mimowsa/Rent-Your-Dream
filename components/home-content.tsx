@@ -3,7 +3,7 @@
 import { useI18n } from '@/components/locale-provider'
 import { faqEn } from '@/content/faq-en'
 import { faq } from '@/content/faq'
-import Image from 'next/image'
+import { RoadArtwork } from '@/components/road-artwork'
 import Link from '@/components/localized-link'
 import { ConfiguratorBand } from '@/components/configurator'
 import { FleetShowcase } from '@/components/fleet-showcase'
@@ -30,9 +30,11 @@ export default function HomeContent() {
             <span className="status-dot" /> {t('Paris & Île-de-France')}
           </span>
           <h1 id="hero-title">
-            {t('Location de voiture.')}
+            {t('Votre départ.')}
             <br />
-            <span>{t('À vous la liberté.')}</span>
+            <span>{t('Vos envies.')}</span>
+            <br />
+            {t('Notre priorité.')}
           </h1>
           <p>
             {t(
@@ -44,22 +46,13 @@ export default function HomeContent() {
               {t('Découvrir la flotte ')}
               <ArrowRight />
             </Link>
+            <Link href="#reserver" className="btn btn--on-dark">
+              {t('Choisir mes dates')}
+              <ArrowRight />
+            </Link>
           </div>
         </div>
-        <div className="hero-brand">
-          <span className="hero-brand__stripes" aria-hidden="true" />
-          <Image
-            src="/brand/ryd-stacked.png"
-            alt={t('Rent Your Dream — logo RYD bleu, blanc et rouge')}
-            width={1219}
-            height={438}
-            preload
-            sizes="(max-width: 760px) 260px, (max-width: 1050px) 40vw, 460px"
-          />
-          <span className="hero-brand__signature">
-            {t('L’envie de partir, simplement.')}
-          </span>
-        </div>
+        <RoadArtwork />
       </section>
 
       <div className="trust-strip wrap">
@@ -97,6 +90,17 @@ export default function HomeContent() {
         ))}
       </div>
 
+      <section
+        className="wrap quick-booking"
+        id="reserver"
+        aria-labelledby="quick-booking-title"
+      >
+        <h2 id="quick-booking-title" className="kicker">
+          {t('Préparez votre demande')}
+        </h2>
+        <ConfiguratorBand compact />
+      </section>
+
       <section className="section fleet-section" id="vehicules">
         <div className="wrap">
           <div className="editorial-heading">
@@ -105,9 +109,8 @@ export default function HomeContent() {
                 {t('Le plaisir de prendre la route')}
               </span>
               <h2>
-                {t('Notre flotte.')}
-                <br />
-                {t('Toutes vos envies.')}
+                {t('Notre flotte.')}{' '}
+                <span className="blue-text">{t('Toutes vos envies.')}</span>
               </h2>
             </div>
             <p>
@@ -120,61 +123,13 @@ export default function HomeContent() {
         </div>
       </section>
 
-      <section className="section journey-section" id="comment-ca-marche">
-        <div className="wrap">
-          <div className="editorial-heading">
-            <div>
-              <span className="kicker">{t('Simple, du début à la fin')}</span>
-              <h2>{t('Moins de démarches. Plus de kilomètres.')}</h2>
-            </div>
-          </div>
-          <div className="journey-grid">
-            {[
-              ['01', 'Choisissez', 'Votre véhicule et son forfait.'],
-              ['02', 'Vos dates', 'Précisez votre départ et votre retour.'],
-              ['03', 'On confirme', 'Disponibilité, devis et conditions.'],
-              [
-                '04',
-                'À vous la route',
-                'Retrait ou livraison, à vous de choisir.',
-              ],
-            ].map(([n, title, description]) => (
-              <article key={n}>
-                <span>{t(n)}</span>
-                <h3>{t(title)}</h3>
-                <p>{t(description)}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section
-        className="wrap quick-booking"
-        id="reserver"
-        aria-labelledby="quick-booking-title"
-      >
-        <header className="quick-booking-heading">
-          <div>
-            <span className="kicker">
-              {t('Votre location, en trois étapes')}
-            </span>
-            <h2 id="quick-booking-title">{t('On prépare votre départ ?')}</h2>
-          </div>
-          <p>
-            {t('Vos dates. Vos options. Un récapitulatif prêt pour WhatsApp.')}
-          </p>
-        </header>
-        <ConfiguratorBand preview />
-      </section>
-
       <section className="section wrap local-section">
         <div>
           <span className="kicker">{t('À côté de vous')}</span>
           <h2>
             {t('Paris, l’Île-de-France.')}
             <br />
-            {t('Et vos envies d’ailleurs.')}
+            <span className="blue-text">{t('Et vos envies d’ailleurs.')}</span>
           </h2>
         </div>
         <div>

@@ -1,5 +1,7 @@
 'use client'
 
+import { RoadArtwork } from '@/components/road-artwork'
+
 import { useI18n } from '@/components/locale-provider'
 
 import Image from 'next/image'
@@ -21,6 +23,7 @@ export function SiteFooter() {
       <div className="wrap wrap--wide">
         {/* call to action */}
         <div className="footer-cta">
+          <RoadArtwork />
           <div className="footer-cta__text">
             <span className="section-mark" aria-hidden="true" />
             <h2>{t('Prêt à prendre la route ?')}</h2>

@@ -65,9 +65,11 @@ function dateLabel(value: string, locale: 'fr' | 'en') {
 export function ConfiguratorBand({
   initialSlug,
   preview = false,
+  compact = false,
 }: {
   initialSlug?: string
   preview?: boolean
+  compact?: boolean
 }) {
   const { t, locale } = useI18n()
 
@@ -138,7 +140,10 @@ export function ConfiguratorBand({
     if (!endDate)
       return { field: 'end', message: 'Choisissez votre date de retour.' }
     if (!endTime)
-      return { field: 'end-time', message: 'Choisissez votre heure de retour.' }
+      return {
+        field: 'end-time',
+        message: 'Choisissez votre heure de retour.',
+      }
     const start = localDateTime(startDate, startTime)
     const end = localDateTime(endDate, endTime)
     if (!Number.isFinite(start))
@@ -147,7 +152,10 @@ export function ConfiguratorBand({
         message: 'Vérifiez la date et l’heure de départ.',
       }
     if (!Number.isFinite(end))
-      return { field: 'end', message: 'Vérifiez la date et l’heure de retour.' }
+      return {
+        field: 'end',
+        message: 'Vérifiez la date et l’heure de retour.',
+      }
     if (start <= Date.now())
       return {
         field: 'start',
@@ -158,13 +166,13 @@ export function ConfiguratorBand({
         field: 'end',
         message: 'Le retour doit être prévu après le départ.',
       }
-    if (step >= 1 && delivery && !deliveryCity.trim())
+    if ((compact || step >= 1) && delivery && !deliveryCity.trim())
       return {
         field: 'city',
         message: 'Précisez la ville de livraison souhaitée.',
       }
     if (
-      step >= 1 &&
+      (compact || step >= 1) &&
       extraKmWanted &&
       extraKm &&
       (!Number.isSafeInteger(Number(extraKm)) ||
@@ -225,6 +233,286 @@ export function ConfiguratorBand({
       return
     }
     lastOpen.current = Date.now()
+  }
+
+  if (compact) {
+    return (
+      <form
+        className="compact-booking"
+        noValidate
+        aria-label={t('Préparer une demande de location')}
+        onSubmit={(event) => event.preventDefault()}
+      >
+        <div className="spam-trap" aria-hidden="true">
+          <label htmlFor={`${uid}-website`}>Website</label>
+          <input
+            id={`${uid}-website`}
+            value={website}
+            onChange={(event) => setWebsite(event.target.value)}
+            tabIndex={-1}
+            autoComplete="off"
+          />
+        </div>
+        <div className="compact-grid">
+          <div className="compact-vehicle">
+            <label htmlFor={`${uid}-vehicle`}>{t('Votre véhicule')}</label>
+            <div className="compact-car">
+              <Image
+                src={vehicle.photos[0].src}
+                alt={t(vehicle.photos[0].alt)}
+                width={90}
+                height={68}
+              />
+              <div>
+                <select
+                  id={`${uid}-vehicle`}
+                  value={slug}
+                  {...fieldAccessibility('vehicle')}
+                  onChange={(event) => {
+                    setSlug(event.target.value)
+                    setError(null)
+                  }}
+                >
+                  {vehicles.map((item) => (
+                    <option
+                      key={item.slug}
+                      value={item.slug}
+                      disabled={!item.available}
+                    >
+                      {item.name}
+                    </option>
+                  ))}
+                </select>
+                <p>
+                  {t(vehicle.transmission)} · {t(vehicle.fuel)}
+                </p>
+              </div>
+            </div>
+            <p className="compact-price">
+              <strong>{euros(vehicle.pricing.day)}</strong> {t('TTC / 24 h')}
+            </p>
+            <Link href={`/vehicules/${vehicle.slug}`} className="tlink">
+              {t('Photos et détails')} <ArrowRight />
+            </Link>
+          </div>
+          <div className="compact-dates">
+            {(
+              [
+                {
+                  name: 'Départ',
+                  dateField: 'start',
+                  timeField: 'start-time',
+                  date: startDate,
+                  time: startTime,
+                  setDate: setStartDate,
+                  setTime: setStartTime,
+                },
+                {
+                  name: 'Retour',
+                  dateField: 'end',
+                  timeField: 'end-time',
+                  date: endDate,
+                  time: endTime,
+                  setDate: setEndDate,
+                  setTime: setEndTime,
+                },
+              ] as const
+            ).map((item) => (
+              <fieldset key={item.dateField}>
+                <legend>{t(item.name)}</legend>
+                <div className="compact-date-row">
+                  <label
+                    className="sr-only"
+                    htmlFor={`${uid}-${item.dateField}`}
+                  >
+                    {t(
+                      item.name === 'Départ'
+                        ? 'Date de départ'
+                        : 'Date de retour',
+                    )}
+                  </label>
+                  <input
+                    id={`${uid}-${item.dateField}`}
+                    type="date"
+                    required
+                    min={
+                      item.dateField === 'start' ? today : startDate || today
+                    }
+                    value={item.date}
+                    {...fieldAccessibility(item.dateField)}
+                    onChange={(event) => {
+                      item.setDate(event.target.value)
+                      setError(null)
+                    }}
+                  />
+                  <label
+                    className="sr-only"
+                    htmlFor={`${uid}-${item.timeField}`}
+                  >
+                    {t(
+                      item.name === 'Départ'
+                        ? 'Heure de départ'
+                        : 'Heure de retour',
+                    )}
+                  </label>
+                  <input
+                    id={`${uid}-${item.timeField}`}
+                    type="time"
+                    required
+                    value={item.time}
+                    {...fieldAccessibility(item.timeField)}
+                    onChange={(event) => {
+                      item.setTime(event.target.value)
+                      setError(null)
+                    }}
+                  />
+                </div>
+              </fieldset>
+            ))}
+          </div>
+          <div className="compact-options">
+            <fieldset>
+              <legend>{t('Kilomètres supplémentaires')}</legend>
+              <div className="compact-toggle">
+                <button
+                  type="button"
+                  aria-pressed={!extraKmWanted}
+                  onClick={() => {
+                    setExtraKmWanted(false)
+                    setError(null)
+                  }}
+                >
+                  {t('Non')}
+                </button>
+                <button
+                  type="button"
+                  aria-pressed={extraKmWanted}
+                  onClick={() => {
+                    setExtraKmWanted(true)
+                    setError(null)
+                  }}
+                >
+                  {t('Oui')}
+                </button>
+              </div>
+            </fieldset>
+            {extraKmWanted && (
+              <div className="compact-extra">
+                <label htmlFor={`${uid}-km`}>
+                  {t('Nombre de kilomètres supplémentaires (facultatif)')}
+                </label>
+                <input
+                  id={`${uid}-km`}
+                  type="number"
+                  min={1}
+                  max={100000}
+                  step={1}
+                  value={extraKm}
+                  {...fieldAccessibility('km')}
+                  onChange={(event) => {
+                    setExtraKm(event.target.value)
+                    setError(null)
+                  }}
+                />
+              </div>
+            )}
+            <fieldset>
+              <legend>{t('Récupération')}</legend>
+              <div className="compact-toggle">
+                <button
+                  type="button"
+                  aria-pressed={!delivery}
+                  onClick={() => {
+                    setDelivery(false)
+                    setError(null)
+                  }}
+                >
+                  {t('Retrait')}
+                </button>
+                <button
+                  type="button"
+                  aria-pressed={delivery}
+                  onClick={() => {
+                    setDelivery(true)
+                    setError(null)
+                  }}
+                >
+                  {t('Livraison')}
+                </button>
+              </div>
+            </fieldset>
+            {delivery && (
+              <div className="compact-extra">
+                <label htmlFor={`${uid}-city`}>
+                  {t('Ville de livraison (obligatoire pour cette option)')}
+                </label>
+                <input
+                  id={`${uid}-city`}
+                  value={deliveryCity}
+                  required
+                  maxLength={100}
+                  autoComplete="address-level2"
+                  {...fieldAccessibility('city')}
+                  onChange={(event) => {
+                    setDeliveryCity(event.target.value)
+                    setError(null)
+                  }}
+                />
+              </div>
+            )}
+          </div>
+          <div className="compact-action">
+            <strong>{t('Une demande sans engagement.')}</strong>
+            {whatsappHref ? (
+              <a
+                href={whatsappHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn--primary"
+                aria-describedby={`${uid}-privacy`}
+                onClick={validateContact}
+              >
+                <WhatsApp />
+                {t('Préparer sur WhatsApp')}
+                <span className="sr-only"> {t('(nouvel onglet)')}</span>
+              </a>
+            ) : (
+              <p>
+                {t('Les demandes WhatsApp sont temporairement indisponibles.')}
+              </p>
+            )}
+            <p>{t('Disponibilité et conditions confirmées par l’agence.')}</p>
+          </div>
+        </div>
+        {error && (
+          <p id={`${uid}-error`} className="booking-error" role="alert">
+            {t(error.message)}
+          </p>
+        )}
+        <p className="compact-privacy" id={`${uid}-privacy`}>
+          {t('Aucun paiement en ligne · Envoi à confirmer dans WhatsApp')}
+          <br />
+          {t(
+            'En ouvrant WhatsApp, vous transmettez ce récapitulatif à ce service externe de Meta dans un nouvel onglet. Vous confirmez ensuite l’envoi au loueur dans WhatsApp.',
+          )}{' '}
+          <Link href="/politique-confidentialite">
+            {t('Utilisation de vos données')}
+          </Link>
+        </p>
+        <noscript>
+          {bookingIntentLink && (
+            <a
+              className="btn btn--outline"
+              href={bookingIntentLink}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {t('Ouvrir WhatsApp')}
+            </a>
+          )}
+        </noscript>
+      </form>
+    )
   }
 
   return (

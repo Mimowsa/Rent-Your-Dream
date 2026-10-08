@@ -9,37 +9,9 @@ import { euros, vehicles } from '@/lib/vehicles'
 
 function ComingVehicle() {
   return (
-    <svg viewBox="0 0 160 80" fill="none" aria-hidden="true" focusable="false">
-      <path
-        d="M22 51 31 32c2-4 5-6 10-6h62c5 0 9 2 12 6l14 19 13 5v11H17V56l5-5Z"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinejoin="round"
-      />
-      <path
-        d="m36 46 7-12h55l10 12H36ZM19 57h17m87 0h17"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <circle
-        cx="43"
-        cy="66"
-        r="9"
-        fill="var(--fleet-placeholder)"
-        stroke="currentColor"
-        strokeWidth="2"
-      />
-      <circle
-        cx="116"
-        cy="66"
-        r="9"
-        fill="var(--fleet-placeholder)"
-        stroke="currentColor"
-        strokeWidth="2"
-      />
-    </svg>
+    <span className="coming-plus" aria-hidden="true">
+      +
+    </span>
   )
 }
 
