@@ -28,23 +28,18 @@ icons.forEach((data, i) => {
   offset += data.length
 })
 await writeFile('app/favicon.ico', Buffer.concat([header, ...icons]))
-const photo = await sharp('Src/megane-4/vitrine.png').resize(710, 630, { fit: 'cover' }).jpeg({ quality: 95 }).toBuffer()
-const logo = await sharp(mark).resize({ width: 270 }).png().toBuffer()
+const logo = await sharp(mark).resize({ width: 880 }).png().toBuffer()
 const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630">
-<defs><linearGradient id="fade"><stop offset="0" stop-color="white"/><stop offset="1" stop-color="white" stop-opacity="0"/></linearGradient></defs>
 <rect width="1200" height="630" fill="white"/>
-<image href="data:image/jpeg;base64,${photo.toString('base64')}" x="490" width="710" height="630"/>
-<rect x="475" width="160" height="630" fill="url(#fade)"/>
-<image href="data:image/png;base64,${logo.toString('base64')}" x="56" y="44" width="270" height="88"/>
-<g font-family="Arial, Helvetica, sans-serif">
-<text x="60" y="184" fill="#164bee" font-size="17" font-weight="700" letter-spacing="3">RENT YOUR DREAM</text>
-<text x="56" y="278" fill="#101114" font-size="61" font-weight="700" letter-spacing="-2">Louez.</text>
-<text x="56" y="352" fill="#101114" font-size="61" font-weight="700" letter-spacing="-2">Roulez.</text>
-<text x="56" y="426" fill="#164bee" font-size="61" font-weight="700" letter-spacing="-2">Profitez.</text>
-<text x="60" y="486" fill="#536170" font-size="20">Location de voiture</text>
-<text x="60" y="518" fill="#536170" font-size="20">Paris &amp; Île-de-France</text>
-<text x="60" y="589" fill="#101114" font-size="18" font-weight="700">rentyourdream.fr</text>
-</g><rect y="622" width="400" height="8" fill="#164bee"/><rect x="400" y="622" width="400" height="8" fill="#eeeeef"/><rect x="800" y="622" width="400" height="8" fill="#e21d35"/>
+<image href="data:image/png;base64,${logo.toString('base64')}" x="160" y="140" width="880" height="270"/>
+<g font-family="Arial, Helvetica, sans-serif" text-anchor="middle">
+<text x="600" y="473" fill="#101114" font-size="32" font-weight="700" letter-spacing="6">RENT YOUR DREAM</text>
+<text x="600" y="522" fill="#536170" font-size="22">Location de voiture · Paris &amp; Île-de-France</text>
+<text x="600" y="584" fill="#164bee" font-size="18" font-weight="700">rentyourdream.fr</text>
+</g>
+<rect y="622" width="400" height="8" fill="#164bee"/>
+<rect x="400" y="622" width="400" height="8" fill="#eeeeef"/>
+<rect x="800" y="622" width="400" height="8" fill="#e21d35"/>
 </svg>`
 await sharp(Buffer.from(svg)).jpeg({ quality: 92 }).toFile('app/opengraph-image.jpg')
-console.log('Generated OG preview, favicon, logo icon and Apple touch icon from Src.')
+console.log('Generated logo-only OG preview, favicon and Apple touch icon from Src.')
