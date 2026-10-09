@@ -75,7 +75,7 @@ export function SocialBand() {
               <a
                 key={key}
                 href={c.url}
-                target="_blank"
+                target={key === 'tiktok' ? '_self' : '_blank'}
                 rel="noopener noreferrer"
                 className="sb-pill"
               >

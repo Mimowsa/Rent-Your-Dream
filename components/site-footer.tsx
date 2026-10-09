@@ -86,7 +86,7 @@ export function SiteFooter() {
                 <a
                   key={channel.label}
                   href={channel.url}
-                  target="_blank"
+                  target={channel.label === 'TikTok' ? '_self' : '_blank'}
                   rel="noopener noreferrer"
                 >
                   {channel.label} · {channel.handle}

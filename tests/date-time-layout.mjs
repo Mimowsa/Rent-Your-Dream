@@ -14,6 +14,9 @@ for (const [name, engine] of [['Chrome', chromium], ['Safari/WebKit', webkit]]) 
       await page.goto(base + locale)
       for (const width of [320, 375, 390, 430, 768, 1440]) {
         await page.setViewportSize({ width, height: 844 })
+        // Mobile viewport and media queries settle asynchronously after resizing.
+        await page.waitForFunction(width => innerWidth === width, width)
+        await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))))
         for (const populated of [false, true]) {
           await page.locator('.compact-date-row input[type="date"]').evaluateAll((inputs, populated) => {
             for (const input of inputs) input.value = populated ? '2027-12-25' : ''
