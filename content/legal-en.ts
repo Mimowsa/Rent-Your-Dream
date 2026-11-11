@@ -1,5 +1,4 @@
 import { company } from '@/lib/company'
-import { primaryVehicle as v } from '@/lib/vehicles'
 import { rentalPolicy } from '@/lib/rental-policy'
 
 export type LegalSection = {
@@ -128,16 +127,16 @@ export const legalEn: Record<string, LegalDocument> = {
         ],
       },
       {
-        heading: `${v.name} prices`,
+        heading: 'Availability and prices',
         paragraphs: [
-          `EUR ${v.pricing.day} including taxes for 24 hours; EUR ${v.pricing.weekend} for a ${v.pricing.weekendHours}-hour weekend, with precise times agreed; EUR ${v.pricing.week} for 7 days. ${v.includedKmPerDay} km per day included.`,
+          'No vehicles are currently available. Prices and included mileage will be specified for each new vehicle.',
           'Displayed prices are the tax-inclusive amounts paid by consumers. Delivery and additional mileage are quoted in advance and are not automatically added. Other vehicles have their own prices and conditions.',
         ],
       },
       {
         heading: 'Driver and insurance',
         paragraphs: [
-          `The driver must be at least ${v.minimumAge} and have held a valid licence appropriate to the vehicle for at least ${v.minimumLicenseYears} year. Necessary documents are specified before confirmation.`,
+          'Age, driving licence requirements and necessary documents will be specified for each vehicle before confirmation. The licence must be valid and appropriate to the vehicle.',
           'Third-party liability cover is required for every rental. Coverage of sub-rental, permitted drivers, guarantees, exclusions, excesses and assistance still require written confirmation from the vehicle supplier and insurer. No booking will be confirmed before these checks.',
         ],
       },
@@ -145,7 +144,7 @@ export const legalEn: Record<string, LegalDocument> = {
         heading: 'Booking payment and security deposit',
         paragraphs: [
           `After availability and terms are confirmed, ${rentalPolicy.arrhesPercent}% of the agreed total is requested as arrhes, a booking payment under French law. It is deducted from the rental price and differs from an acompte and from the security deposit. The exact amount, payment method and balance due date are supplied before agreement.`,
-          `The ${v.name} security deposit is EUR ${v.deposit}, paid by bank transfer. It is separate from the rental price and from the insurance excess. Return is scheduled for the day of vehicle return, after inspection and subject to justified amounts due under the agreed terms. Bank processing may delay receipt.`,
+          'The security deposit amount and payment method will be specified for each vehicle before agreement. It is separate from the rental price and from the insurance excess. Return is scheduled for the day of vehicle return, after inspection and subject to justified amounts due under the agreed terms. Bank processing may delay receipt.',
           'The website collects no payments. Cash payments connected with car rental are prohibited subject to the statutory exceptions in article L.112-6 of the French Monetary and Financial Code, including people without a deposit account or unable to use another payment method. The exception must be checked before accepting cash.',
         ],
       },

@@ -1,4 +1,5 @@
 import { pageMetadata } from '@/lib/seo'
+import { vehicles } from '@/lib/vehicles'
 import { FleetShowcase } from '@/components/fleet-showcase'
 export const metadata = pageMetadata({
   title: 'Notre flotte de voitures à louer à Paris',
@@ -14,8 +15,9 @@ export default function Vehicles() {
         <span className="kicker">La flotte Rent Your Dream</span>
         <h1>Votre prochaine envie d’évasion.</h1>
         <p>
-          Découvrez nos véhicules, leurs équipements et leurs tarifs. De
-          nouvelles arrivées sont prévues prochainement.
+          {vehicles.length
+            ? 'Découvrez nos véhicules, leurs équipements et leurs tarifs. De nouvelles arrivées sont prévues prochainement.'
+            : 'Aucun véhicule disponible pour le moment. Notre flotte sera mise à jour dès que de nouveaux véhicules seront disponibles.'}
         </p>
       </section>
       <section className="wrap section catalog-section">

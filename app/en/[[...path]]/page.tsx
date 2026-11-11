@@ -15,7 +15,7 @@ import { faqEn } from '@/content/faq-en'
 import { faqJsonLd } from '@/lib/faq-seo'
 import { pageMetadata, jsonLd, absoluteUrl } from '@/lib/seo'
 import { company } from '@/lib/company'
-import { getVehicle, euros } from '@/lib/vehicles'
+import { getVehicle, euros, vehicles } from '@/lib/vehicles'
 import { translate } from '@/lib/i18n'
 import { contactChatLink } from '@/lib/whatsapp'
 import { siteRoutes } from '@/lib/routes'
@@ -97,7 +97,9 @@ export default async function EnglishPage({ params, searchParams }: Props) {
         <Intro
           kicker="The Rent Your Dream fleet"
           title="Your next escape."
-          description="Explore our vehicles, equipment and prices. New vehicles will be arriving soon."
+          description={vehicles.length
+            ? 'Explore our vehicles, equipment and prices. New vehicles will be arriving soon.'
+            : 'No vehicles available at the moment. Our fleet will be updated as soon as new vehicles are available.'}
         />
         <section className="wrap section catalog-section">
           <FleetShowcase />

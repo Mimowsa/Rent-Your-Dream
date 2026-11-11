@@ -11,6 +11,7 @@ import { FaqAccordion } from '@/components/faq-accordion'
 import { faqJsonLd } from '@/lib/faq-seo'
 import { SocialBand } from '@/components/social-section'
 import { ArrowRight, Check } from '@/components/icons'
+import { vehicles } from '@/lib/vehicles'
 import { company } from '@/lib/company'
 import { jsonLd } from '@/lib/seo'
 
@@ -46,8 +47,8 @@ export default function HomeContent() {
               {t('Découvrir la flotte ')}
               <ArrowRight />
             </Link>
-            <Link href="#reserver" className="btn btn--on-dark">
-              {t('Choisir mes dates')}
+            <Link href={vehicles.length ? "#reserver" : "/contact"} className="btn btn--on-dark">
+              {t(vehicles.length ? 'Choisir mes dates' : 'Nous contacter')}
               <ArrowRight />
             </Link>
           </div>
@@ -115,7 +116,9 @@ export default function HomeContent() {
             </div>
             <p>
               {t(
-                'Découvrez nos véhicules et leurs tarifs. La flotte s’agrandit : de nouveaux modèles arrivent prochainement.',
+                vehicles.length
+                  ? 'Découvrez nos véhicules et leurs tarifs. La flotte s’agrandit : de nouveaux modèles arrivent prochainement.'
+                  : 'Aucun véhicule disponible pour le moment.',
               )}
             </p>
           </div>

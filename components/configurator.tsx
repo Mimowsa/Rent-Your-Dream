@@ -5,7 +5,7 @@ import { useI18n } from '@/components/locale-provider'
 import { useEffect, useId, useRef, useState, type MouseEvent } from 'react'
 import Image from 'next/image'
 import Link from '@/components/localized-link'
-import { euros, primaryVehicle, vehicles } from '@/lib/vehicles'
+import { euros, primaryVehicle, vehicles, type Vehicle } from '@/lib/vehicles'
 import { company } from '@/lib/company'
 import {
   buildWhatsappMessage,
@@ -14,6 +14,8 @@ import {
   type BookingSelection,
 } from '@/lib/whatsapp'
 import { ArrowRight, Check, WhatsApp } from '@/components/icons'
+
+import { NoVehiclesAvailable } from '@/components/no-vehicles-available'
 
 type Field =
   | 'vehicle'
@@ -62,19 +64,32 @@ function dateLabel(value: string, locale: 'fr' | 'en') {
     : 'À choisir'
 }
 
-export function ConfiguratorBand({
-  initialSlug,
-  preview = false,
-  compact = false,
-}: {
+type ConfiguratorProps = {
   initialSlug?: string
   preview?: boolean
   compact?: boolean
-}) {
+}
+
+export function ConfiguratorBand(props: ConfiguratorProps) {
+  const initialVehicle =
+    vehicles.find((vehicle) => vehicle.slug === props.initialSlug && vehicle.available) ??
+    primaryVehicle
+
+  if (!initialVehicle) return <NoVehiclesAvailable />
+
+  return <AvailableConfiguratorBand {...props} initialVehicle={initialVehicle} />
+}
+
+function AvailableConfiguratorBand({
+  initialSlug,
+  preview = false,
+  compact = false,
+  initialVehicle,
+}: ConfiguratorProps & { initialVehicle: Vehicle }) {
   const { t, locale } = useI18n()
 
   const uid = useId()
-  const [slug, setSlug] = useState(initialSlug || primaryVehicle.slug)
+  const [slug, setSlug] = useState(initialVehicle.slug)
   const [step, setStep] = useState(0)
   const [today, setToday] = useState('')
   const [startDate, setStartDate] = useState('')
@@ -100,7 +115,7 @@ export function ConfiguratorBand({
       setSlug(selected)
   }, [initialSlug])
 
-  const vehicle = vehicles.find((item) => item.slug === slug) ?? primaryVehicle
+  const vehicle = vehicles.find((item) => item.slug === slug) ?? initialVehicle
   const selection: BookingSelection = {
     firstName: firstName.trim(),
     vehicleName: vehicle.name,

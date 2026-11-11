@@ -7,6 +7,8 @@ import Link from '@/components/localized-link'
 import { ArrowRight } from '@/components/icons'
 import { euros, vehicles } from '@/lib/vehicles'
 
+import { NoVehiclesAvailable } from '@/components/no-vehicles-available'
+
 function ComingVehicle() {
   return (
     <Image
@@ -26,7 +28,9 @@ export function FleetShowcase() {
 
   const comingSoonCount = Math.max(0, 4 - vehicles.length)
   return (
-    <div className="fleet-grid">
+    <>
+      {vehicles.length === 0 && <NoVehiclesAvailable />}
+      <div className="fleet-grid">
       {vehicles.map((vehicle) => (
         <article className="fleet-tile fleet-tile--vehicle" key={vehicle.slug}>
           <Link
@@ -95,6 +99,7 @@ export function FleetShowcase() {
           </div>
         </article>
       ))}
-    </div>
+      </div>
+    </>
   )
 }

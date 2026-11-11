@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { LegalPage } from '@/components/LegalPage'
-import { euros, primaryVehicle } from '@/lib/vehicles'
+import { euros } from '@/lib/vehicles'
 import { company } from '@/lib/company'
 import { rentalPolicy } from '@/lib/rental-policy'
 
@@ -18,8 +18,6 @@ export const metadata: Metadata = {
     },
   },
 }
-
-const v = primaryVehicle
 
 export default function ConditionsLocationPage() {
   return (
@@ -60,16 +58,11 @@ export default function ConditionsLocationPage() {
         informations.
       </p>
 
-      <h2>Tarifs de la {v.name}</h2>
-      <ul>
-        <li>24 heures : {euros(v.pricing.day)} TTC.</li>
-        <li>
-          Week-end de {v.pricing.weekendHours} heures :{' '}
-          {euros(v.pricing.weekend)} TTC. Horaires précis à convenir.
-        </li>
-        <li>7 jours : {euros(v.pricing.week)} TTC.</li>
-        <li>Kilométrage inclus : {v.includedKmPerDay} km par jour.</li>
-      </ul>
+      <h2>Disponibilité et tarifs</h2>
+      <p>
+        Aucun véhicule n’est disponible pour le moment. Les tarifs et le
+        kilométrage inclus seront précisés pour chaque nouveau véhicule.
+      </p>
       <p>
         Les prix affichés sont les montants toutes taxes comprises payés par les
         particuliers. Le total et le détail de chaque prestation doivent figurer
@@ -80,14 +73,13 @@ export default function ConditionsLocationPage() {
 
       <h2>Conducteur et assurance</h2>
       <p>
-        Le conducteur doit avoir au moins {v.minimumAge} ans et être titulaire
-        du permis de conduire depuis au moins {v.minimumLicenseYears} an. Le
-        permis doit être valide et adapté au véhicule. Les justificatifs
-        nécessaires sont précisés avant la confirmation de la location.
+        Les conditions d’âge, d’ancienneté du permis et les justificatifs
+        nécessaires seront précisés pour chaque véhicule avant la confirmation
+        de la location. Le permis doit être valide et adapté au véhicule.
       </p>
       <p>
         La responsabilité civile doit être couverte pour toute location. La
-        couverture applicable à la sous-location de la {v.name} reste à vérifier
+        couverture applicable à la sous-location du véhicule reste à vérifier
         avec le fournisseur du véhicule et son assureur. Les conducteurs
         autorisés, garanties, exclusions, franchises et modalités d’assistance
         doivent être confirmés par écrit avant toute réservation. Aucun accord
@@ -103,8 +95,8 @@ export default function ConditionsLocationPage() {
         solde figurent dans l’offre remise avant votre engagement.
       </p>
       <p>
-        Le dépôt de garantie, couramment appelé caution, est de{' '}
-        {euros(v.deposit)}, par virement. Il est distinct du prix de la location
+        Le montant et les modalités du dépôt de garantie, couramment appelé
+        caution, seront précisés pour chaque véhicule avant tout engagement. Il est distinct du prix de la location
         et n’est pas assimilable au montant d’une franchise d’assurance.
       </p>
       <p>
